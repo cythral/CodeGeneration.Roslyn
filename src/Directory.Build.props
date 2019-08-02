@@ -35,7 +35,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" Version="2.3.38" PrivateAssets="all" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" IncludeAssets="analyzers" PrivateAssets="all" />
   </ItemGroup>
 

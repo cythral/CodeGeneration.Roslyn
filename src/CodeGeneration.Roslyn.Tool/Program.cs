@@ -10,9 +10,9 @@ namespace CodeGeneration.Roslyn.Generate
     using CodeGeneration.Roslyn.Tool.CommandLine;
     using Microsoft.CodeAnalysis;
 
-    internal static class Program
+    public static class Program
     {
-        private static int Main(string[] args)
+        public static int Main(string[] args)
         {
             IReadOnlyList<string> compile = Array.Empty<string>();
             IReadOnlyList<string> refs = Array.Empty<string>();
@@ -21,10 +21,9 @@ namespace CodeGeneration.Roslyn.Generate
             string generatedCompileItemFile = null;
             string outputDirectory = null;
             string projectDir = null;
-            bool version = false;
+            
             ArgumentSyntax.Parse(args, syntax =>
             {
-                syntax.DefineOption("version", ref version, "Show version of this tool (and exits).");
                 syntax.DefineOptionList("r|reference", ref refs, "Paths to assemblies being referenced");
                 syntax.DefineOptionList("d|define", ref preprocessorSymbols, "Preprocessor symbols");
                 syntax.DefineOptionList("generatorSearchPath", ref generatorSearchPaths, "Paths to folders that may contain generator assemblies");
@@ -34,11 +33,6 @@ namespace CodeGeneration.Roslyn.Generate
                 syntax.DefineParameterList("compile", ref compile, "Source files included in compilation");
             });
 
-            if (version)
-            {
-                Console.WriteLine(ThisAssembly.AssemblyInformationalVersion);
-                return 0;
-            }
             if (!compile.Any())
             {
                 Console.Error.WriteLine("No source files are specified.");

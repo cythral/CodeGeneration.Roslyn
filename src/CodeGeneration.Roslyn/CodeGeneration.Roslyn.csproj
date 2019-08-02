@@ -3,14 +3,44 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>A package that offers libraries for creating a code generation attribute and the associated generator.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DevelopmentDependency>true</DevelopmentDependency>
+
+    <!--
+    Min Version is 2.5 because that's when build/ folder support was introduced:
+    https://docs.microsoft.com/en-us/nuget/release-notes/nuget-2.5#automatic-import-of-msbuild-targets-and-props-files
+    -->
+    <MinClientVersion>2.5</MinClientVersion>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <!-- Below is needed to make NuGet package TFM-oblivious -->
+    <!-- <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking> -->
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="[$(RoslynNugetVersion)]" />
+    <ProjectReference Include="..\CodeGeneration.Roslyn.Engine\CodeGeneration.Roslyn.Engine.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeGeneration.Roslyn.Attributes\CodeGeneration.Roslyn.Attributes.csproj" />
+    <None Include="build/**">
+      <Pack>true</Pack>
+      <PackagePath>build/</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools/**">
+      <Pack>true</Pack>
+      <PackagePath>tools/</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
+  <Target Name="BuildCodegenTool" BeforeTargets="Pack">
+    <MakeDir Directories="$(MSBuildThisFileDirectory)/tools" />
+    <MSBuild Projects="../CodeGeneration.Roslyn.Tool/CodeGeneration.Roslyn.Tool.csproj" Properties="OutDir=$(MSBuildThisFileDirectory)/tools">
+        <Output TaskParameter="TargetOutputs" ItemName="ToolAssemblies" />
+    </MSBuild>
+  </Target>
+  <!-- <Target Name="CleanupCodegenToolFiles" AfterTargets="Pack">
+    <RemoveDir Directories="$(MSBuildThisFileDirectory)/tools" />
+  </Target> -->
+  
 </Project>
