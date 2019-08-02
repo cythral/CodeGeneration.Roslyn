@@ -8,7 +8,7 @@ namespace CodeGeneration.Roslyn.Tests.Generators
     using Validation;
 
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
-    [CodeGenerationAttribute("CodeGeneration.Roslyn.Tests.Generators.ExternalDuplicateWithSuffixGenerator, CodeGeneration.Roslyn.Tests.Generators, Version=" + ThisAssembly.AssemblyVersion + ", Culture=neutral, PublicKeyToken=null")]
+    [CodeGenerationAttribute("CodeGeneration.Roslyn.Tests.Generators.ExternalDuplicateWithSuffixGenerator, CodeGeneration.Roslyn.Tests.Generators, Culture=neutral, PublicKeyToken=null")]
     [Conditional("CodeGeneration")]
     public class ExternalDuplicateWithSuffixByNameAttribute : Attribute
     {

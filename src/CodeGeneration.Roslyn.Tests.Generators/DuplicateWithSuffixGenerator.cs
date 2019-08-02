@@ -10,6 +10,7 @@ namespace CodeGeneration.Roslyn.Tests.Generators
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using CodeGeneration.Roslyn.Engine;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
-  <Import Project="..\CodeGeneration.Roslyn.BuildTime\build\CodeGeneration.Roslyn.BuildTime.props" />
+  <Import Project="..\CodeGeneration.Roslyn\build\CodeGeneration.Roslyn.props" />
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
@@ -28,6 +28,6 @@
     </ProjectReference>
   </ItemGroup>
 
-  <Import Project="..\CodeGeneration.Roslyn.BuildTime\build\CodeGeneration.Roslyn.BuildTime.targets" />
+  <Import Project="..\CodeGeneration.Roslyn\build\CodeGeneration.Roslyn.targets" />
   
 </Project>
