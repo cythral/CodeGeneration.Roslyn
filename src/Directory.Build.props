@@ -1,4 +1,4 @@
-<Project>
+<Project TreatAsLocalProperty="Version;PackageVersion">
 
   <PropertyGroup Label="Metadata">
     <Authors>Andrew Arnott</Authors>
@@ -17,8 +17,10 @@
     <WarningsAsErrors Condition=" '$(Configuration)' == Release ">true</WarningsAsErrors>
     <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)../obj/$(MSBuildProjectName)/</BaseIntermediateOutputPath>
     <OutputPath>$(MSBuildThisFileDirectory)../bin/$(MSBuildProjectName)/$(Configuration)/</OutputPath>
+    <PackageVersion Condition="$(PackageVersion) == ''">$(Version)</PackageVersion>
     <PackageOutputPath>$(MSBuildThisFileDirectory)../bin/Packages/$(Configuration)/</PackageOutputPath>
     <IsTestingOnlyProject>$(MSBuildProjectName.Contains('Test'))</IsTestingOnlyProject>
+    <GetPackageVersionDependsOn>Version</GetPackageVersionDependsOn>
     <RoslynNugetVersion>3.1.0</RoslynNugetVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ThisAssemblyNamespace>CodeGeneration.Roslyn</ThisAssemblyNamespace>
@@ -34,6 +36,12 @@
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <IsPackable>false</IsPackable>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)CodeGeneration.Roslyn.Tests.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RestoreDependsOn>
+        Version
+    </RestoreDependsOn>
   </PropertyGroup>
 
   <ItemGroup>

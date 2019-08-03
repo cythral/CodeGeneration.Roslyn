@@ -17,10 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeGeneration.Roslyn.Engine\CodeGeneration.Roslyn.Engine.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="build/**">
       <Pack>true</Pack>
       <PackagePath>build/</PackagePath>
@@ -33,12 +29,17 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CodeGeneration.Roslyn.Engine\CodeGeneration.Roslyn.Engine.csproj" />
+  </ItemGroup>
+
   <Target Name="BuildCodegenTool" BeforeTargets="Pack">
     <MakeDir Directories="$(MSBuildThisFileDirectory)/tools" />
     <MSBuild Projects="../CodeGeneration.Roslyn.Tool/CodeGeneration.Roslyn.Tool.csproj" Properties="OutDir=$(MSBuildThisFileDirectory)/tools">
         <Output TaskParameter="TargetOutputs" ItemName="ToolAssemblies" />
     </MSBuild>
   </Target>
+  
   <!-- <Target Name="CleanupCodegenToolFiles" AfterTargets="Pack">
     <RemoveDir Directories="$(MSBuildThisFileDirectory)/tools" />
   </Target> -->
