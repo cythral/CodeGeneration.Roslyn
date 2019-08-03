@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.0</TargetFrameworks>
-    <RootNamespace>CodeGeneration.Roslyn</RootNamespace>
+    <PackageId>Cythral.CodeGeneration.Roslyn.Attributes</PackageId>
+    <RootNamespace>Cythral.CodeGeneration.Roslyn</RootNamespace>
     <Description>A package that offers attributes to drive code generation.</Description>
   </PropertyGroup>
   
