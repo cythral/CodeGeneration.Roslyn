@@ -1,0 +1,7 @@
+<Project>
+    <Target Name="Version" DependsOnTargets="GitInfo" AfterTargets="GitInfo" BeforeTargets="Build">
+        <PropertyGroup>
+            <PackageVersion>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)</PackageVersion>
+        </PropertyGroup>
+    </Target>
+</Project>
