@@ -20,6 +20,8 @@
     <PackageOutputPath>$(MSBuildThisFileDirectory)../bin/Packages/$(Configuration)/</PackageOutputPath>
     <IsTestingOnlyProject>$(MSBuildProjectName.Contains('Test'))</IsTestingOnlyProject>
     <RoslynNugetVersion>3.1.0</RoslynNugetVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ThisAssemblyNamespace>CodeGeneration.Roslyn</ThisAssemblyNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition=" !$(IsTestingOnlyProject) ">
@@ -35,6 +37,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GitInfo" Version="2.0.20" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" IncludeAssets="analyzers" PrivateAssets="all" />
   </ItemGroup>
 
@@ -42,6 +45,6 @@
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json">
       <Visible>false</Visible>
     </AdditionalFiles>
+    <Compile Include="$(MSBuildthisFileDirectory)GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
   </ItemGroup>
-
 </Project>
