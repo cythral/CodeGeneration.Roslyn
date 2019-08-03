@@ -5,7 +5,7 @@
     <Description>A package that offers libraries for creating a code generation attribute and the associated generator.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <DevelopmentDependency>true</DevelopmentDependency>
-
+    <PackageId>Cythral.CodeGeneration.Roslyn</PackageId>
     <!--
     Min Version is 2.5 because that's when build/ folder support was introduced:
     https://docs.microsoft.com/en-us/nuget/release-notes/nuget-2.5#automatic-import-of-msbuild-targets-and-props-files
