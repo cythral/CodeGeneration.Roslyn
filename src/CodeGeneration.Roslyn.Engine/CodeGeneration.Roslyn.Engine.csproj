@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>The engine of source code generation used by `dotnet-codegen` tool.</Description>
     <PackageId>Cythral.CodeGeneration.Roslyn.Engine</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
