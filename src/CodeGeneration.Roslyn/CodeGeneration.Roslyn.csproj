@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(MSBuildSDKsPath)\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets" />
     
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>A package that offers libraries for creating a code generation attribute and the associated generator.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <DevelopmentDependency>true</DevelopmentDependency>
     <PackageId>Cythral.CodeGeneration.Roslyn</PackageId>
     <!--
     Min Version is 2.5 because that's when build/ folder support was introduced:
@@ -13,18 +11,11 @@
     -->
     <MinClientVersion>2.5</MinClientVersion>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <!-- Below is needed to make NuGet package TFM-oblivious -->
-    <!-- <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking> -->
 
     <GenerateNuspecDependsOn>
         BuildCodegenTool;
         $(GenerateNuspecDependsOn)
     </GenerateNuspecDependsOn>
-
-    <RestoreDependsOn>
-        BuildCodegenTool;
-        $(RestoreDependsOn)
-    </RestoreDependsOn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,7 +30,7 @@
     <ProjectReference Include="..\CodeGeneration.Roslyn.Engine\CodeGeneration.Roslyn.Engine.csproj" />
   </ItemGroup>
 
-  <Target Name="BuildCodegenTool" BeforeTargets="Restore">
+  <Target Name="BuildCodegenTool" AfterTargets="Build" BeforeTargets="Pack">
     <MakeDir Directories="$(MSBuildThisFileDirectory)/tools" />
     <MSBuild Projects="../CodeGeneration.Roslyn.Tool/CodeGeneration.Roslyn.Tool.csproj" Properties="OutDir=$(MSBuildThisFileDirectory)/tools">
         <Output TaskParameter="TargetOutputs" ItemName="ToolAssemblies" />
