@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <Import Project="$(MSBuildSDKsPath)\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets" />
+    
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>A package that offers libraries for creating a code generation attribute and the associated generator.</Description>
@@ -14,6 +15,16 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <!-- Below is needed to make NuGet package TFM-oblivious -->
     <!-- <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking> -->
+
+    <GenerateNuspecDependsOn>
+        BuildCodegenTool;
+        $(GenerateNuspecDependsOn)
+    </GenerateNuspecDependsOn>
+
+    <RestoreDependsOn>
+        BuildCodegenTool;
+        $(RestoreDependsOn)
+    </RestoreDependsOn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,26 +33,24 @@
       <PackagePath>build/</PackagePath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="tools/**">
-      <Pack>true</Pack>
-      <PackagePath>tools/</PackagePath>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CodeGeneration.Roslyn.Engine\CodeGeneration.Roslyn.Engine.csproj" />
   </ItemGroup>
 
-  <Target Name="BuildCodegenTool" BeforeTargets="Pack">
+  <Target Name="BuildCodegenTool" BeforeTargets="Restore">
     <MakeDir Directories="$(MSBuildThisFileDirectory)/tools" />
     <MSBuild Projects="../CodeGeneration.Roslyn.Tool/CodeGeneration.Roslyn.Tool.csproj" Properties="OutDir=$(MSBuildThisFileDirectory)/tools">
         <Output TaskParameter="TargetOutputs" ItemName="ToolAssemblies" />
     </MSBuild>
+    <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)/tools/**" Pack="true" PackagePath="tools/" />
+    </ItemGroup>
   </Target>
   
-  <!-- <Target Name="CleanupCodegenToolFiles" AfterTargets="Pack">
+  <Target Name="CleanupCodegenToolFiles" AfterTargets="Pack">
     <RemoveDir Directories="$(MSBuildThisFileDirectory)/tools" />
-  </Target> -->
+  </Target>
   
 </Project>
