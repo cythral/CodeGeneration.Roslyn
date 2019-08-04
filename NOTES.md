@@ -1,0 +1,1 @@
+- set GetPackageVersionDependsOn to a target that sets the version - project references will translate into nuget dependencies with version 1.0.0
