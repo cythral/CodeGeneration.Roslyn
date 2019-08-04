@@ -1,7 +1,18 @@
 # Roslyn-based Code Generation
+[![NuGet package](https://img.shields.io/nuget/v/Cythral.CodeGeneration.Roslyn.svg)][NuPkg]
 
-[![Build Status](https://andrewarnott.visualstudio.com/OSS/_apis/build/status/CodeGeneration.Roslyn)](https://andrewarnott.visualstudio.com/OSS/_build/latest?definitionId=15)
-[![NuGet package](https://img.shields.io/nuget/v/CodeGeneration.Roslyn.svg)][NuPkg]
+This is an opinionated take on Andrew Arnott's [CodeGeneration.Roslyn](https://github.com/AArnott/CodeGeneration.Roslyn) package.  The msbuild process has been altered in a way that consuming projects do not need to add a <DotNetCliToolReference> to dotnet-codegen and/or multiple dependencies.  This is good if you are just looking for a simple setup where your attributes and generators are in the same assembly. 
+
+A trade-off of this setup is less separation of concerns:
+- Classes formerly defined in the attributes and base assemblies have been moved to the engine assembly.  This was done to avoid a circular reference to the now added "BuildCodegenTool" target in CodeGeneration.Roslyn.  
+- The dotnet-codegen tool is packaged into the tools/ directory of the base package instead of being published to nuget
+- Dependencies in your combined generator/attribute assembly will be accessible to the consuming project
+- This is no longer compatible with older platforms.  If you need to target older platforms, please use the original library.  
+
+#### Other changes
+- Switched from Nerdbank.GitVersioning to GitInfo for version stamping. Sorry Andrew :( I can't seem to get LibGit2Sharp to work on Arch (yes, I know its not officially supported).
+
+## Upstream Description
 
 Assists in performing Roslyn-based code generation during a build.
 This includes design-time support, such that code generation can respond to
@@ -35,12 +46,9 @@ your code generation attribute is applied to, but with a suffix appended to its 
 ### Define code generator
 [Define code generator]: #define-code-generator
 
-This must be done in a library that targets `netstandard2.0` or `net461`
-(or any `netcoreapp2.1`-compatible target).
-Your generator cannot be defined in the same project that will have code generated
-for it because code generation runs *before* the receiving project is itself compiled.
+This must be done in a library that targets `netstandard2.0` Your generator cannot be defined in the same project that will have code generated for it because code generation runs *before* the receiving project is itself compiled.
 
-Install the [CodeGeneration.Roslyn][NuPkg] NuGet Package.
+Install the [Cythral.CodeGeneration.Roslyn][NuPkg] NuGet Package.
 
 Define the generator class in a class library targeting `netstandard2.0`
 (*note: constructor accepting `AttributeData` parameter is required*):
@@ -87,21 +95,7 @@ public class DuplicateWithSuffixGenerator : ICodeGenerator
 ### Define attribute
 
 To activate your code generator, you need to define an attribute that can be
-applied to the class to be copied. This attribute may be defined in the same
-assembly as defines your code generator, but since your code generator must
-be defined in a `netcoreapp2.1`-compatible library, this may limit which projects
-can apply your attribute. So define your attribute in another assembly if
-it must be applied to projects that target older platforms.
-
-If your attributes are in their own project, you must install the
-[CodeGeneration.Roslyn.Attributes][AttrNuPkg] package to your attributes project.
-
-Define your attribute class.
-For this walkthrough, we will assume that the attributes are defined in the same
-netstandard2.0 project that defines the generator which allows us to use the more
-convenient `typeof` syntax when declaring the code generator type.
-If the attributes and code generator classes were in separate assemblies, you must
-specify the assembly-qualified name of the generator type as a string instead.
+applied to the class to be copied. 
 
 ```csharp
 using CodeGeneration.Roslyn;
@@ -150,17 +144,6 @@ public class Foo
 }
 ```
 
-Install the [CodeGeneration.Roslyn.BuildTime][BuildTimeNuPkg] package into the
-project that uses your attribute. You may set `PrivateAssets="all"` on this reference
-because this is a build-time only package. You must also add this item to an `<ItemGroup>` in the project
-that will execute the code generator as part of your build:
-
-```xml
-<DotNetCliToolReference Include="dotnet-codegen" Version="0.4.12" />
-```
-
-You should adjust the version in the above xml to match the version of this tool you are using.
-
 You can then consume the generated code at design-time:
 
 ```csharp
@@ -195,16 +178,7 @@ to immediately see the effects of your changes on the generated code.
 ## Packaging up your code generator for others' use
 [Packaging up your code generator for others' use]: #packaging-up-your-code-generator-for-others-use
 
-You can also package up your code generator as a NuGet package for others to install
-and use. Your NuGet package should include a dependency on the `CodeGeneration.Roslyn.BuildTime`
-that matches the version of `CodeGeneration.Roslyn` that you used to produce your generator.
-For example, if you used version 0.4.12 of this project, your .nuspec file would include this tag:
-
-```xml
-<dependency id="CodeGeneration.Roslyn.BuildTime" version="0.4.12" />
-```
-
-In addition to this dependency, your NuGet package should include a `build` folder with an
+Your NuGet package should include a `build` folder with an
 MSBuild file (either a .props or a .targets file) that defines an `GeneratorAssemblySearchPaths`
 MSBuild item pointing to the folder containing your code generator assembly and its dependencies.
 For example your package should have a `build\MyPackage.targets` file with this content:
@@ -213,31 +187,14 @@ For example your package should have a `build\MyPackage.targets` file with this 
 <?xml version="1.0" encoding="utf-8" ?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\tools" />
+    <GeneratorAssemblySearchPaths Include="$(MSBuildThisFileDirectory)..\lib" />
   </ItemGroup>
 </Project>
 ```
 
-Then your package should also have a `tools` folder that contains your code generator and any of the runtime
-dependencies it needs *besides those delivered by the `CodeGeneration.Roslyn.BuildTime` package*.
-
-Your attributes assembly should be placed under your package's `lib` folder so consuming projects
+The assembly defining your attribute(s) and generator(s) should be placed under your package's `lib` folder so consuming projects
 can apply those attributes.
 
-Your consumers should depend on your package, and the required dotnet CLI tool,
-so that the MSBuild Task can invoke the `dotnet codegen` command line tool:
 
-```xml
-<ItemGroup>
-  <PackageReference Include="YourCodeGenPackage" Version="1.2.3" PrivateAssets="all" />
-  <DotNetCliToolReference Include="dotnet-codegen" Version="0.4.12" />
-</ItemGroup>
-```
-
-Make sure that the DotNetCliToolReference version matches the version of the
-`CodeGeneration.Roslyn` package your package depends on.
-
-[NuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn
-[BuildTimeNuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn.BuildTime
-[AttrNuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn.Attributes
+[NuPkg]: https://nuget.org/packages/Cythral.CodeGeneration.Roslyn
 [netstandard-table]: https://docs.microsoft.com/dotnet/standard/net-standard#net-implementation-support
