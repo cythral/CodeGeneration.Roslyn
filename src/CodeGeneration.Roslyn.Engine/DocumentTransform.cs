@@ -43,7 +43,7 @@ namespace CodeGeneration.Roslyn.Engine
         /// <param name="assemblyLoader">A function that can load an assembly with the given name.</param>
         /// <param name="progress">Reports warnings and errors in code generation.</param>
         /// <returns>A task whose result is the generated document.</returns>
-        public static async Task<SyntaxTree> TransformAsync(
+        public static async Task<TransformResult> TransformAsync(
             CSharpCompilation compilation,
             SyntaxTree inputDocument,
             string projectDirectory,
@@ -53,10 +53,12 @@ namespace CodeGeneration.Roslyn.Engine
             Requires.NotNull(compilation, nameof(compilation));
             Requires.NotNull(inputDocument, nameof(inputDocument));
             Requires.NotNull(assemblyLoader, nameof(assemblyLoader));
+            
+            var generatorTypesUsed = new HashSet<Type>();
 
             var inputSemanticModel = compilation.GetSemanticModel(inputDocument);
             var inputCompilationUnit = inputDocument.GetCompilationUnitRoot();
-
+    
             var emittedExterns = inputCompilationUnit
                 .Externs
                 .Select(x => x.WithoutTrivia())
@@ -81,6 +83,8 @@ namespace CodeGeneration.Roslyn.Engine
                 var generators = FindCodeGenerators(attributeData, assemblyLoader);
                 foreach (var generator in generators)
                 {
+                    generatorTypesUsed.Add(generator.GetType());
+
                     var context = new TransformationContext(
                         memberNode,
                         inputSemanticModel,
@@ -110,7 +114,12 @@ namespace CodeGeneration.Roslyn.Engine
                     .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed)
                     .NormalizeWhitespace();
 
-            return compilationUnit.SyntaxTree;
+            var result = new TransformResult() {
+                GeneratedSyntaxTree = compilationUnit.SyntaxTree,
+                GeneratorTypesUsed = generatorTypesUsed
+            };
+
+            return result;
         }
 
         private static ImmutableArray<AttributeData> GetAttributeData(Compilation compilation, SemanticModel document, SyntaxNode syntaxNode)

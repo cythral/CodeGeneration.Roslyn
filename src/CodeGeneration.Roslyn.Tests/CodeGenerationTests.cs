@@ -31,6 +31,12 @@ public partial class CodeGenerationTests
         d.TestMethodSuffix();
     }
 
+    [Fact]
+    public void OnCompleteGetsCalled()
+    {
+        Assert.True(OnComplete.WasCalled);
+    }
+
     public partial class Wrapper
     {
         [ExternalDuplicateWithSuffixByName("Suffix")]
@@ -50,5 +56,10 @@ public partial class CodeGenerationTests
     {
         [Test(X = 10, Y = 20)]
         public string Value { get; set; }
+    }
+
+    [OnComplete]
+    public partial class OnCompleteTarget
+    { 
     }
 }

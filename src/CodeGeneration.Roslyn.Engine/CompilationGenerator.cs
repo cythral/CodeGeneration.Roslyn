@@ -121,6 +121,7 @@ namespace CodeGeneration.Roslyn.Engine
             DateTime assembliesLastModified = GetLastModifiedAssemblyTime(generatorAssemblyInputsFile);
 
             var fileFailures = new List<Exception>();
+            var generatorTypesUsed = new HashSet<Type>();
 
             using (var hasher = System.Security.Cryptography.SHA1.Create())
             {
@@ -142,14 +143,18 @@ namespace CodeGeneration.Roslyn.Engine
                         {
                             try
                             {
-                                var generatedSyntaxTree = DocumentTransform.TransformAsync(
+                                var result = DocumentTransform.TransformAsync(
                                     compilation,
                                     inputSyntaxTree,
                                     this.ProjectDirectory,
                                     this.LoadAssembly,
                                     progress).GetAwaiter().GetResult();
 
+                                generatorTypesUsed.UnionWith(result.GeneratorTypesUsed);
+
+                                var generatedSyntaxTree = result.GeneratedSyntaxTree;
                                 var outputText = generatedSyntaxTree.GetText(cancellationToken);
+
                                 using (var outputFileStream = File.OpenWrite(outputFilePath))
                                 using (var outputWriter = new StreamWriter(outputFileStream))
                                 {
@@ -188,6 +193,17 @@ namespace CodeGeneration.Roslyn.Engine
             }
 
             this.SaveGeneratorAssemblyList(generatorAssemblyInputsFile);
+
+            foreach(Type generatorType in generatorTypesUsed) 
+            {
+                var method = generatorType.GetMethod("OnComplete");
+
+                if(method != null) 
+                {
+                    var args = new object[] { this };
+                    method.Invoke(null, args);
+                }
+            }
 
             if (fileFailures.Count > 0)
             {
