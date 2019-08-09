@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="[$(RoslynNugetVersion)]" />
   </ItemGroup>
 
   <ItemGroup>
