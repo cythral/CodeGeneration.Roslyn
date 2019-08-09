@@ -32,7 +32,7 @@
 
   <Target Name="BuildCodegenTool" AfterTargets="Build" BeforeTargets="Pack">
     <MakeDir Directories="$(MSBuildThisFileDirectory)/tools" />
-    <MSBuild Projects="../CodeGeneration.Roslyn.Tool/CodeGeneration.Roslyn.Tool.csproj" Properties="OutDir=$(MSBuildThisFileDirectory)/tools">
+    <MSBuild Projects="../CodeGeneration.Roslyn.Tool/CodeGeneration.Roslyn.Tool.csproj" Targets="Publish" Properties="OutDir=$(MSBuildThisFileDirectory)/tools;PublishDir=$(MSBuildThisFileDirectory)/tools;Configuration=Release">
         <Output TaskParameter="TargetOutputs" ItemName="ToolAssemblies" />
     </MSBuild>
     <ItemGroup>
