@@ -36,6 +36,8 @@
         $(IntermediateOutputPath);
         --projectDir;
         $(MSBuildProjectDirectory);
+        --assemblyName;
+        $(AssemblyName);
         --generatedFilesList;
         $(_CodeGenToolGeneratedFileListFullPath);
         --;

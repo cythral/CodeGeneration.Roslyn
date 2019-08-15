@@ -85,6 +85,11 @@ namespace CodeGeneration.Roslyn.Engine
         public string ProjectDirectory { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the assembly which the source files are being compiled into
+        /// </summary>
+        public string AssemblyName { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CompilationGenerator"/> class
         /// with default dependency resolution and loading.
         /// </summary>
@@ -370,7 +375,7 @@ namespace CodeGeneration.Roslyn.Engine
 
         private CSharpCompilation CreateCompilation(CancellationToken cancellationToken)
         {
-            var compilation = CSharpCompilation.Create("codegen")
+            var compilation = CSharpCompilation.Create(AssemblyName)
                 .WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
                 .WithReferences(this.ReferencePath.Select(p => MetadataReference.CreateFromFile(p)));
             var parseOptions = new CSharpParseOptions(preprocessorSymbols: this.PreprocessorSymbols);

@@ -22,6 +22,7 @@ namespace CodeGeneration.Roslyn.Generate
             string generatedCompileItemFile = null;
             string outputDirectory = null;
             string projectDir = null;
+            string assemblyName = null;
             bool version = false;
             ArgumentSyntax.Parse(args, syntax =>
             {
@@ -32,6 +33,7 @@ namespace CodeGeneration.Roslyn.Generate
                 syntax.DefineOption("out", ref outputDirectory, true, "The directory to write generated source files to");
                 syntax.DefineOption("projectDir", ref projectDir, true, "The absolute path of the directory where the project file is located");
                 syntax.DefineOption("generatedFilesList", ref generatedCompileItemFile, "The path to the file to create with a list of generated source files");
+                syntax.DefineOption("assemblyName", ref assemblyName, "Name of the assembly in which the source files are being compiled into");
                 syntax.DefineParameterList("compile", ref compile, "Source files included in compilation");
             });
             
@@ -60,6 +62,7 @@ namespace CodeGeneration.Roslyn.Generate
                 PreprocessorSymbols = preprocessorSymbols,
                 GeneratorAssemblySearchPaths = Sanitize(generatorSearchPaths),
                 IntermediateOutputDirectory = outputDirectory,
+                AssemblyName = assemblyName
             };
 
             var progress = new Progress<Diagnostic>(OnDiagnosticProgress);
