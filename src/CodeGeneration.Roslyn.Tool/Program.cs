@@ -19,6 +19,8 @@ namespace CodeGeneration.Roslyn.Generate
             IReadOnlyList<string> refs = Array.Empty<string>();
             IReadOnlyList<string> preprocessorSymbols = Array.Empty<string>();
             IReadOnlyList<string> generatorSearchPaths = Array.Empty<string>();
+            IReadOnlyList<string> buildPropertyList = Array.Empty<string>();
+            Dictionary<string,string> buildProperties = new Dictionary<string,string>();
             string generatedCompileItemFile = null;
             string outputDirectory = null;
             string projectDir = null;
@@ -30,6 +32,7 @@ namespace CodeGeneration.Roslyn.Generate
                 syntax.DefineOptionList("r|reference", ref refs, "Paths to assemblies being referenced");
                 syntax.DefineOptionList("d|define", ref preprocessorSymbols, "Preprocessor symbols");
                 syntax.DefineOptionList("generatorSearchPath", ref generatorSearchPaths, "Paths to folders that may contain generator assemblies");
+                syntax.DefineOptionList("buildProperty", ref buildPropertyList, "MSBuild properties to expose to the generator");
                 syntax.DefineOption("out", ref outputDirectory, true, "The directory to write generated source files to");
                 syntax.DefineOption("projectDir", ref projectDir, true, "The absolute path of the directory where the project file is located");
                 syntax.DefineOption("generatedFilesList", ref generatedCompileItemFile, "The path to the file to create with a list of generated source files");
@@ -54,6 +57,18 @@ namespace CodeGeneration.Roslyn.Generate
                 return 2;
             }
 
+            foreach(var prop in buildPropertyList) {
+                var i = prop.IndexOf("=");
+
+                if(i <= 0) {
+                    continue;
+                }
+
+                var key = prop.Substring(0, i);
+                var value = prop.Substring(i + 1);
+                buildProperties[key] = value;
+            }
+
             var generator = new CompilationGenerator
             {
                 ProjectDirectory = projectDir,
@@ -62,6 +77,7 @@ namespace CodeGeneration.Roslyn.Generate
                 PreprocessorSymbols = preprocessorSymbols,
                 GeneratorAssemblySearchPaths = Sanitize(generatorSearchPaths),
                 IntermediateOutputDirectory = outputDirectory,
+                BuildProperties = buildProperties,
                 AssemblyName = assemblyName
             };
 

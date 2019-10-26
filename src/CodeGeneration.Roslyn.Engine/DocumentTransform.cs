@@ -42,20 +42,21 @@ namespace CodeGeneration.Roslyn.Engine
         /// <param name="projectDirectory">The path of the <c>.csproj</c> project file.</param>
         /// <param name="assemblyLoader">A function that can load an assembly with the given name.</param>
         /// <param name="progress">Reports warnings and errors in code generation.</param>
+        /// <param
         /// <returns>A task whose result is the generated document.</returns>
         public static async Task<TransformResult> TransformAsync(
             CSharpCompilation compilation,
             SyntaxTree inputDocument,
             string projectDirectory,
             Func<AssemblyName, Assembly> assemblyLoader,
-            IProgress<Diagnostic> progress)
+            IProgress<Diagnostic> progress,
+            Dictionary<string,string> buildProperties = null)
         {
             Requires.NotNull(compilation, nameof(compilation));
             Requires.NotNull(inputDocument, nameof(inputDocument));
             Requires.NotNull(assemblyLoader, nameof(assemblyLoader));
             
             var generatorTypesUsed = new HashSet<Type>();
-
             var inputSemanticModel = compilation.GetSemanticModel(inputDocument);
             var inputCompilationUnit = inputDocument.GetCompilationUnitRoot();
     
@@ -77,6 +78,8 @@ namespace CodeGeneration.Roslyn.Engine
                 .DescendantNodesAndSelf(n => n is CompilationUnitSyntax || n is NamespaceDeclarationSyntax || n is TypeDeclarationSyntax)
                 .OfType<CSharpSyntaxNode>();
 
+            buildProperties = buildProperties ?? new Dictionary<string,string>();
+
             foreach (var memberNode in memberNodes)
             {
                 var attributeData = GetAttributeData(compilation, inputSemanticModel, memberNode);
@@ -91,7 +94,8 @@ namespace CodeGeneration.Roslyn.Engine
                         compilation,
                         projectDirectory,
                         emittedUsings,
-                        emittedExterns);
+                        emittedExterns,
+                        buildProperties);
 
                     var richGenerator = generator as IRichCodeGenerator ?? new EnrichingCodeGeneratorProxy(generator);
 

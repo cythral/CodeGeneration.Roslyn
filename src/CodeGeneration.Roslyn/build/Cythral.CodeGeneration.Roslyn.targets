@@ -7,6 +7,12 @@
       PrepareGenerateCodeFromAttributes;
       GenerateCodeFromAttributesCore
     </GenerateCodeFromAttributesDependsOn>
+
+    <PrepareGenerateCodeFromAttributesDependsOn>
+      $(PrepareGenerateCodeFromAttributesDependsOn);
+      ResolveReferences;
+      Restore;
+    </PrepareGenerateCodeFromAttributesDependsOn>
   </PropertyGroup>
 
   <Target
@@ -20,7 +26,10 @@
       <Compile_CodeGenInputs
         Include="@(Compile)"
         Condition=" '%(Compile.Generator)' == 'MSBuild:GenerateCodeFromAttributes' " />
-      <DefineConstantsItems Include="$(DefineConstants)" />
+      <GeneratorProperties Include="@(GeneratorPropertyNames)">
+        <Key>%(Identity)</Key>
+        <Value>$(%(Identity))</Value>
+      </GeneratorProperties>
     </ItemGroup>
     <PropertyGroup>
       <GenerateCodeFromAttributesToolPathOverride
@@ -32,6 +41,7 @@
         @(ReferencePath->'-r;%(Identity)');
         @(DefineConstantsItems->'-d;%(Identity)');
         @(GeneratorAssemblySearchPaths->'--generatorSearchPath;%(Identity)');
+        @(GeneratorProperties->'--buildProperty;%(Key)=%(Value)');
         --out;
         $(IntermediateOutputPath);
         --projectDir;

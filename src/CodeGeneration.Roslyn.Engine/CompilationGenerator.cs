@@ -65,6 +65,11 @@ namespace CodeGeneration.Roslyn.Engine
         public string IntermediateOutputDirectory { get; set; }
 
         /// <summary>
+        /// MSBuild properties that the generator was passed
+        /// </summary>
+        public Dictionary<string,string> BuildProperties { get; set; }
+        
+        /// <summary>
         /// Gets the set of files generated after <see cref="Generate"/> is invoked.
         /// </summary>
         public IEnumerable<string> GeneratedFiles => this.generatedFiles;
@@ -153,7 +158,8 @@ namespace CodeGeneration.Roslyn.Engine
                                     inputSyntaxTree,
                                     this.ProjectDirectory,
                                     this.LoadAssembly,
-                                    progress).GetAwaiter().GetResult();
+                                    progress,
+                                    this.BuildProperties).GetAwaiter().GetResult();
 
                                 generatorTypesUsed.UnionWith(result.GeneratorTypesUsed);
 

@@ -28,7 +28,8 @@ namespace CodeGeneration.Roslyn.Engine
             CSharpCompilation compilation,
             string projectDirectory,
             IEnumerable<UsingDirectiveSyntax> compilationUnitUsings,
-            IEnumerable<ExternAliasDirectiveSyntax> compilationUnitExterns)
+            IEnumerable<ExternAliasDirectiveSyntax> compilationUnitExterns,
+            Dictionary<string,string> buildProperties)
         {
             ProcessingNode = processingNode;
             SemanticModel = semanticModel;
@@ -36,6 +37,7 @@ namespace CodeGeneration.Roslyn.Engine
             ProjectDirectory = projectDirectory;
             CompilationUnitUsings = compilationUnitUsings;
             CompilationUnitExterns = compilationUnitExterns;
+            BuildProperties = buildProperties;
         }
 
         /// <summary>Gets the syntax node the generator attribute is found on.</summary>
@@ -55,5 +57,8 @@ namespace CodeGeneration.Roslyn.Engine
 
         /// <summary>Gets a collection of extern aliases already queued to be generated.</summary>
         public IEnumerable<ExternAliasDirectiveSyntax> CompilationUnitExterns { get; }
+
+        /// <summary>MSBuild properties</summary>
+        public Dictionary<string,string> BuildProperties { get; }
     }
 }

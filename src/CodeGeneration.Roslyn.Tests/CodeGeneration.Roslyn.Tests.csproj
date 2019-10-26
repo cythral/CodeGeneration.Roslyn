@@ -29,6 +29,8 @@
     </ProjectReference>
   </ItemGroup>
 
-  
-  
+  <ItemGroup>
+    <GeneratorPropertyNames Include="OutDir" />
+  </ItemGroup>
+
 </Project>
