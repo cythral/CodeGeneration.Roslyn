@@ -29,6 +29,7 @@ Instructions on development and using this project's source code are in [CONTRIB
     - [Package your code generator](#package-your-code-generator)
       - [Separate out the attribute](#separate-out-the-attribute)
       - [Create the metapackage](#create-the-metapackage)
+    - [Access MSBuild Properties](#access-msbuild-properties)
 
 ## How to write your own code generator
 
@@ -456,6 +457,28 @@ Our metapackage should be versioned in the same manner
 as it's dependant packages.
 
 > 📋 For a sample metapackage, see [MetapackageSample](samples/MetapackageSample/).
+
+### Accesss MSBuild Properties
+
+You may access MSBuild property values of the project being generated for, by first adding the property
+name to the `GeneratorBuildPropertyNames` item group.  For example, if you want to access the TargetFramework build
+property, you would do the following in your generator's .csproj file:
+
+```xml
+<ItemGroup>
+  <GeneratorBuildPropertyNames Include="TargetFramework">
+</ItemGroup>
+```
+
+Then, you can access its value like this:
+
+```cs
+public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(TransformationContext context, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
+{
+    var targetFramework = context.BuildProperties["TargetFramework"];
+    // ...
+}
+```
 
 [NuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn
 [AttrNuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn.Attributes

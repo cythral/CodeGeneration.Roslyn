@@ -24,6 +24,10 @@
         Include="@(Compile)"
         Condition=" '%(Compile.Generator)' == 'MSBuild:GenerateCodeFromAttributes' " />
       <_CodeGenToolInputs_DefineConstants Include="$(DefineConstants)" />
+      <GeneratorBuildProperties Include="@(GeneratorBuildPropertyNames)">
+        <Key>%(Identity)</Key>
+        <Value>$(%(Identity))</Value>
+      </GeneratorBuildProperties>
       <!-- Map GeneratorAssemblySearchPaths to actual DLLs until support is removed -->
       <GeneratorAssemblySearchPaths
         Update="@(GeneratorAssemblySearchPaths)"
@@ -65,6 +69,7 @@
       <_CodeGenToolResponseFileLines>
         @(ReferencePath->'-r;%(Identity)');
         @(_CodeGenToolInputs_DefineConstants->'-d;%(Identity)');
+        @(GeneratorBuildProperties->'--buildProperty;%(Key)=%(Value)');
         @(CodeGenerationRoslynPlugin->'--plugin;%(Identity)');
         --out;
         $(IntermediateOutputPath);

@@ -7,6 +7,10 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <ItemGroup>
+    <GeneratorBuildPropertyNames Include="TargetFramework" />
+  </ItemGroup>
+  
   <Import Project="$(CodeGenerationRoslynPluginSdkPath)Sdk.targets" />
 
 </Project>
