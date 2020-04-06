@@ -30,6 +30,7 @@
       PackCustomTool;$(TargetsForTfmSpecificContentInPackage)
     </TargetsForTfmSpecificContentInPackage>
     <PackPublishedContentPath>tools/any</PackPublishedContentPath>
+    <RepositoryUrl>https://github.com/cythral/codegeneration.roslyn</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -6,6 +6,7 @@
 * CodeGeneration.Roslyn.CompilationGenerator
 * CodeGeneration.Roslyn.DocumentTransform
     </Description>
+    <RepositoryUrl>https://github.com/cythral/codegeneration.roslyn</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

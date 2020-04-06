@@ -26,6 +26,7 @@ How to use MSBuild project SDKs: https://docs.microsoft.com/visualstudio/msbuild
       using a documented extension point.
     -->
     <BeforePack>$(BeforePack);CreateVersionProps</BeforePack>
+    <RepositoryUrl>https://github.com/cythral/codegeneration.roslyn</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
