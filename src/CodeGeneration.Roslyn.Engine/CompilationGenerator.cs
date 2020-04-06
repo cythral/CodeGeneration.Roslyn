@@ -134,7 +134,7 @@ namespace CodeGeneration.Roslyn.Engine
                                     cancellationToken);
                                 var generatedSyntaxTree = result.SyntaxTree;
                                 var outputText = await generatedSyntaxTree.GetTextAsync(cancellationToken);
-                                
+
                                 generatorTypesUsed.UnionWith(result.GeneratorTypesUsed);
 
                                 using (var outputFileStream = File.OpenWrite(outputFilePath))
@@ -179,11 +179,11 @@ namespace CodeGeneration.Roslyn.Engine
 
             var onCompleteContext = new OnCompleteContext(IntermediateOutputDirectory, BuildProperties);
 
-            foreach (Type generatorType in generatorTypesUsed) 
+            foreach (Type generatorType in generatorTypesUsed)
             {
                 var method = generatorType.GetMethod("OnComplete");
 
-                if(method != null) 
+                if (method != null)
                 {
                     var args = new object[] { onCompleteContext };
                     method.Invoke(null, args);

@@ -118,8 +118,9 @@ namespace CodeGeneration.Roslyn.Engine
                     .WithLeadingTrivia(SyntaxFactory.Comment(GeneratedByAToolPreamble))
                     .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed)
                     .NormalizeWhitespace();
-            
-            var result = new TransformResult {
+
+            var result = new TransformResult
+            {
                 SyntaxTree = compilationUnit.SyntaxTree,
                 GeneratorTypesUsed = generatorTypesUsed,
             };

@@ -1,9 +1,11 @@
-  
+  // Copyright (c) Andrew Arnott. All rights reserved.
+// Licensed under the MS-PL license. See LICENSE.txt file in the project root for full license information.
+
 namespace CodeGeneration.Roslyn.Tests.Generators
 {
     using System;
-    using System.IO;
     using System.Diagnostics;
+    using System.IO;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -28,12 +30,15 @@ namespace CodeGeneration.Roslyn.Tests.Generators
         public static void OnComplete(OnCompleteContext context)
         {
             var fileName = Directory.GetFiles(context.IntermediateOutputDirectory, "CodeGenerationTests.*.cs")[0];
+
+#pragma warning disable SA1118
             File.AppendAllText(fileName, @"
 public partial class OnComplete
 {
     public static readonly bool WasCalled = true;
 }
             ");
+#pragma warning restore SA1118
         }
     }
 }

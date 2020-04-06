@@ -87,6 +87,6 @@ public partial class CodeGenerationTests
 
     [OnComplete]
     public partial class OnCompleteTarget
-    { 
+    {
     }
 }
