@@ -66,7 +66,7 @@ jobs:
         
     - name: Deploy
       if: matrix.os == 'windows-latest'
-      run: dotnet nuget push bin/Packages/${{ env.Configuration }}/* -s github
+      run: dotnet nuget push bin/Packages/${{ env.Configuration }}/* -s github -k github
     
     
 
