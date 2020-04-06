@@ -62,7 +62,7 @@ jobs:
     - name: Add Deploy Location
       if: matrix.os == 'windows-latest'
       # if: (github.event_name == 'push' && github.ref == 'master') || (github.event_name == 'release')
-      run: dotnet nuget add source https://nuget.pkg.github.com/cythral/index.json -n github -u cythral -p${{ secrets.GITHUB_TOKEN }}
+      run: dotnet nuget add source https://nuget.pkg.github.com/cythral/index.json -n github -u cythral -p "${{ secrets.GITHUB_TOKEN }}"
         
     - name: Deploy
       if: matrix.os == 'windows-latest'
