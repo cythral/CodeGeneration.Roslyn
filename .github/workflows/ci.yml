@@ -59,12 +59,14 @@ jobs:
       shell: pwsh
       run: samples/build.ps1
     
-    - name: Deploy
+    - name: Add Deploy Location
       if: matrix.os == 'windows-latest'
       # if: (github.event_name == 'push' && github.ref == 'master') || (github.event_name == 'release')
-      run: 
-        - dotnet nuget add source https://nuget.pkg.github.com/cythral/index.json -n github -u cythral -p ${{ secrets.GITHUB_TOKEN }}
-        - dotnet nuget push bin/Packages/${{ env.Configuration }}/*.nupkg -s github
+      run: dotnet nuget add source https://nuget.pkg.github.com/cythral/index.json -n github -u cythral -p ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Deploy
+      if: matrix.os == 'windows-latest'
+      run: dotnet nuget push bin/Packages/${{ env.Configuration }}/*.nupkg -s github
     
     
 
