@@ -21,11 +21,11 @@ namespace CodeGeneration.Roslyn
         /// </summary>
         /// <param name="intermediateOutputDirectory">The intermediate output directory of the project being generated for.</param>
         /// <param name="buildProperties">A read only dictionary of build properties that were present in the project being generated for.</param>
-        public OnCompleteContext(string intermediateOuptutDirectory, IReadOnlyDictionary<string, string> buildProperties) {
-            IntermediateOutputDirectory = intermediateOuptutDirectory;
+        public OnCompleteContext(string intermediateOutputDirectory, IReadOnlyDictionary<string, string> buildProperties) {
+            IntermediateOutputDirectory = intermediateOutputDirectory;
             BuildProperties = buildProperties;
         }
-        
+
         /// <summary>Gets the intermediate output directory of the project being generated for.</summary>
         public string IntermediateOutputDirectory { get; }
 
