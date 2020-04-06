@@ -58,7 +58,7 @@ public abstract class CompilationTestsBase
 
     protected static async Task AssertGeneratedAsExpected(string source, string expected)
     {
-        var generatedTree = await GenerateAsync(source);
+        var generatedTree = (await GenerateAsync(source)).SyntaxTree;
         // normalize line endings to just LF
         var generatedText = NormalizeToLf(generatedTree.GetText().ToString());
         // and append preamble to the expected
@@ -71,7 +71,7 @@ public abstract class CompilationTestsBase
         return input?.Replace(CrLf, Lf);
     }
 
-    protected static async Task<SyntaxTree> GenerateAsync(string source)
+    protected static async Task<TransformResult> GenerateAsync(string source)
     {
         var document = CreateProject(source).Documents.Single();
         var tree = await document.GetSyntaxTreeAsync();

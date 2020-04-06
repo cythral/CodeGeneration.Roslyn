@@ -10,11 +10,11 @@ namespace CodeGeneration.Roslyn
 
     public class OnCompleteContext {
         public OnCompleteContext(string intermediateOuptutDirectory, IReadOnlyDictionary<string, string> buildProperties) {
-            IntermediateOuptutDirectory = intermediateOuptutDirectory;
+            IntermediateOutputDirectory = intermediateOuptutDirectory;
             BuildProperties = buildProperties;
         }
 
-        public string IntermediateOuptutDirectory { get; }
+        public string IntermediateOutputDirectory { get; }
 
         /// <summary>Gets a dictionary of build properties on the project being generated for.</summary>
         public IReadOnlyDictionary<string, string> BuildProperties { get; }

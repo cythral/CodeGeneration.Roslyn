@@ -25,7 +25,7 @@ namespace CodeGeneration.Roslyn.Tests.Generators
             return Task.FromResult(results);
         }
 
-        public static void OnComplete(CompilationGenerator context)
+        public static void OnComplete(OnCompleteContext context)
         {
             var fileName = Directory.GetFiles(context.IntermediateOutputDirectory, "CodeGenerationTests.*.cs")[0];
             File.AppendAllText(fileName, @"
