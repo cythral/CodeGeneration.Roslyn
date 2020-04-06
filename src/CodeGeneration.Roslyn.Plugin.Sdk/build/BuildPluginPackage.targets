@@ -58,6 +58,7 @@
   <ItemGroup>
     <CodeGenerationRoslynPlugin Include="%24(MSBuildThisFileDirectory)../$(PluginPackagePath)/$(TargetFileName)" />  
   </ItemGroup>
+  
   <ItemGroup>
     @(GeneratorBuildPropertyNames->'<GeneratorBuildPropertyNames Include="%(Identity)" />')
   </ItemGroup>
