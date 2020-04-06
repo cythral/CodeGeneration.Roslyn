@@ -59,15 +59,20 @@ jobs:
       shell: pwsh
       run: samples/build.ps1
     
+    - name: Install Nuget.exe
+      if: matrix.os == 'windows-latest'
+      shell: pwsh
+      run: Invoke-WebRequest "https://dist.nuget.org/win-x86-commandline/v4.7.1/nuget.exe" -outfile nuget.exe
+
     - name: Add Deploy Location
       if: matrix.os == 'windows-latest'
       # if: (github.event_name == 'push' && github.ref == 'master') || (github.event_name == 'release')
-      run: dotnet nuget add source https://nuget.pkg.github.com/cythral/index.json -n github -u cythral -p "${{ secrets.GITHUB_TOKEN }}"
+      run: nuget.exe sources add https://nuget.pkg.github.com/cythral/index.json -n github -u cythral -p "${{ secrets.GITHUB_TOKEN }}"
         
     - name: Deploy
       if: matrix.os == 'windows-latest'
       shell: bash
-      run: dotnet nuget push bin/Packages/${{ env.Configuration }}/* -s github -k "${{ secrets.GITHUB_TOKEN }}"
+      run: nuget.exe push bin/Packages/${{ env.Configuration }}/* -s github
     
     
 
