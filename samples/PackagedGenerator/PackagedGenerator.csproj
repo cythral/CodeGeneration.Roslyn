@@ -12,6 +12,10 @@
     <CodeGenerationRoslynPackageTargetFiles Include="PackagedGenerator.targets" />
   </ItemGroup>
 
+  <ItemGroup>
+    <GeneratorBuildPropertyNames Include="TargetFramework" />
+  </ItemGroup>
+  
   <Import Project="$(CodeGenerationRoslynPluginSdkPath)Sdk.targets" />
 
 </Project>

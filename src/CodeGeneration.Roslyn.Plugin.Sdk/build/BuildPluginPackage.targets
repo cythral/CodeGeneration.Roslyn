@@ -56,7 +56,10 @@
   @(CodeGenerationRoslynPackagePropFiles->'<Import Project="%24(MSBuildThisFileDirectory)../build-custom/%(Identity)" />')
 
   <ItemGroup>
-    <CodeGenerationRoslynPlugin Include="%24(MSBuildThisFileDirectory)../$(PluginPackagePath)/$(TargetFileName)" />
+    <CodeGenerationRoslynPlugin Include="%24(MSBuildThisFileDirectory)../$(PluginPackagePath)/$(TargetFileName)" />  
+  </ItemGroup>
+  <ItemGroup>
+    @(GeneratorBuildPropertyNames->'<GeneratorBuildPropertyNames Include="%(Identity)" />')
   </ItemGroup>
 </Project>
 ]]>
