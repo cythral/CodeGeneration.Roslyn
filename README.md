@@ -29,6 +29,7 @@ Instructions on development and using this project's source code are in [CONTRIB
     - [Package your code generator](#package-your-code-generator)
       - [Separate out the attribute](#separate-out-the-attribute)
       - [Create the metapackage](#create-the-metapackage)
+      - [Add extra `build/` content in Plugin package](#add-extra-build-content-in-plugin-package)
     - [Access MSBuild Properties](#access-msbuild-properties)
 
 ## How to write your own code generator
@@ -458,7 +459,14 @@ as it's dependant packages.
 
 > 📋 For a sample metapackage, see [MetapackageSample](samples/MetapackageSample/).
 
-### Accesss MSBuild Properties
+#### Add extra `build/` content in Plugin package
+
+`CG.R.Plugin.Sdk` creates custom `build/PackageId.props/targets` files. If you want
+to add custom MSBuild props/targets into NuGet package's `build` folder (and have it
+imported when package is referenced), you'll need to use `PackageBuildFolderProjectImport`
+ItemGroup, as shown in `PackagedGenerator` sample.
+
+#### Accesss MSBuild Properties
 
 You may access MSBuild property values of the project being generated for, by first adding the property
 name to the `GeneratorBuildPropertyNames` item group.  For example, if you want to access the TargetFramework build
@@ -479,6 +487,8 @@ public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(TransformationCon
     // ...
 }
 ```
+
+
 
 [NuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn
 [AttrNuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn.Attributes

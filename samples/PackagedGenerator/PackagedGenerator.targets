@@ -1,5 +1,0 @@
-<Project>
-    <ItemGroup>
-        <ExampleItem Include="Foo" />
-    </ItemGroup>
-</Project>
