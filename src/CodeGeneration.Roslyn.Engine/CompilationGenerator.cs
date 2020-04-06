@@ -102,6 +102,7 @@ namespace CodeGeneration.Roslyn.Engine
             DateTime assembliesLastModified = GetLastModifiedAssemblyTime();
 
             var fileFailures = new List<Exception>();
+            var generatorTypesUsed = new HashSet<Type>();
 
             using (var hasher = System.Security.Cryptography.SHA1.Create())
             {
@@ -123,7 +124,7 @@ namespace CodeGeneration.Roslyn.Engine
                         {
                             try
                             {
-                                var generatedSyntaxTree = await DocumentTransform.TransformAsync(
+                                var result = await DocumentTransform.TransformAsync(
                                     compilation,
                                     inputSyntaxTree,
                                     this.ProjectDirectory,
@@ -131,7 +132,11 @@ namespace CodeGeneration.Roslyn.Engine
                                     this.LoadPlugin,
                                     progress,
                                     cancellationToken);
+                                var generatedSyntaxTree = result.SyntaxTree;
                                 var outputText = await generatedSyntaxTree.GetTextAsync(cancellationToken);
+                                
+                                generatorTypesUsed.UnionWith(result.GeneratorTypesUsed);
+
                                 using (var outputFileStream = File.OpenWrite(outputFilePath))
                                 using (var outputWriter = new StreamWriter(outputFileStream))
                                 {
@@ -169,6 +174,19 @@ namespace CodeGeneration.Roslyn.Engine
                     }
 
                     this.generatedFiles.Add(outputFilePath);
+                }
+            }
+
+            var onCompleteContext = new OnCompleteContext(IntermediateOutputDirectory, BuildProperties);
+
+            foreach (Type generatorType in generatorTypesUsed) 
+            {
+                var method = generatorType.GetMethod("OnComplete");
+
+                if(method != null) 
+                {
+                    var args = new object[] { onCompleteContext };
+                    method.Invoke(null, args);
                 }
             }
 

@@ -45,6 +45,12 @@ public partial class CodeGenerationTests
         Assert.Equal("c7189d5e-495c-4cab-8e18-ab8d7ab71a2e", objWithBuildProp.ExampleBuildProperty);
     }
 
+    [Fact]
+    public void OnCompleteGetsCalled()
+    {
+        Assert.True(OnComplete.WasCalled);
+    }
+
     public partial class Wrapper
     {
         [ExternalDuplicateWithSuffixByName("Suffix")]
@@ -77,5 +83,10 @@ public partial class CodeGenerationTests
     [AddExampleBuildProperty]
     public partial class ClassWithExampleBuildProperty
     {
+    }
+
+    [OnComplete]
+    public partial class OnCompleteTarget
+    { 
     }
 }
