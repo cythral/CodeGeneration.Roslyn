@@ -1,12 +1,8 @@
 // Copyright (c) Andrew Arnott. All rights reserved.
 // Licensed under the MS-PL license. See LICENSE.txt file in the project root for full license information.
 
-// Copyright (c) Andrew Arnott. All rights reserved.
-// Licensed under the MS-PL license. See LICENSE.txt file in the project root for full license information.
-
 namespace CodeGeneration.Roslyn
 {
-
     using System.Collections.Generic;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
@@ -15,15 +11,14 @@ namespace CodeGeneration.Roslyn
     /// <summary>
     /// Provides all the inputs and context necessary for post-generation processing.
     /// </summary>
-    public class OnCompleteContext 
+    public class OnCompleteContext
     {
-
         /// <summary>
-        /// Initializes a new instance of the OnCompleteContext class.
+        /// Initializes a new instance of the <see cref="OnCompleteContext" /> class.
         /// </summary>
         /// <param name="intermediateOutputDirectory">The intermediate output directory of the project being generated for.</param>
         /// <param name="buildProperties">A read only dictionary of build properties that were present in the project being generated for.</param>
-        public OnCompleteContext(string intermediateOutputDirectory, IReadOnlyDictionary<string, string> buildProperties) 
+        public OnCompleteContext(string intermediateOutputDirectory, IReadOnlyDictionary<string, string> buildProperties)
         {
             IntermediateOutputDirectory = intermediateOutputDirectory;
             BuildProperties = buildProperties;
