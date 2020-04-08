@@ -23,10 +23,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Echo Ref
-      shell: bash
-      run: echo ${{ github.ref }}
-
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
 
@@ -74,7 +70,7 @@ jobs:
       run: for file in $(ls bin/Packages/${{ env.Configuration }}/*.nupkg); do dotnet gpr push $file --owner cythral; done
 
     - name: Deploy to NuGet
-      if: matrix.os == 'windows-latest' && github.ref == 'heads/master' && github.event == 'push'
+      if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master' && github.event_name == 'push'
       shell: bash
       run: dotnet nuget push bin/Packages/${{ env.Configuration }}/*.nupkg -k ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json
 
