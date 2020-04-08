@@ -91,14 +91,14 @@
     <PropertyGroup>
       <_CheckCgrToolReferenceExistsWarning>
         <![CDATA[
-        Plugin metapackage project should contain <PackageReference Include="CodeGeneration.Roslyn.Tool" Version="$(CodeGenerationRoslynPluginMetapackageSdkVersion)" PrivateAssets="none" /> if it doesn't use the CodeGeneration.Roslyn.PluginMetapackage.Sdk as an <Sdk> element. This will allow consumers to directly use this metapackage and have all the required dependencies setup correctly.
+        Plugin metapackage project should contain <PackageReference Include="Cythral.CodeGeneration.Roslyn.Tool" Version="$(CodeGenerationRoslynPluginMetapackageSdkVersion)" PrivateAssets="none" /> if it doesn't use the Cythral.CodeGeneration.Roslyn.PluginMetapackage.Sdk as an <Sdk> element. This will allow consumers to directly use this metapackage and have all the required dependencies setup correctly.
         ]]>
       </_CheckCgrToolReferenceExistsWarning>
     </PropertyGroup>
     <ItemGroup>
       <_CgrToolRef
           Include="@(PackageReference)"
-          Condition=" '%(Identity)' == 'CodeGeneration.Roslyn.Tool' " />
+          Condition=" '%(Identity)' == 'Cythral.CodeGeneration.Roslyn.Tool' " />
     </ItemGroup>
     <Warning
         Condition=" '@(_CgrToolRef->WithMetadataValue('Version', '$(CodeGenerationRoslynPluginMetapackageSdkVersion)')->WithMetadataValue('PrivateAssets', 'none'))' == '' "

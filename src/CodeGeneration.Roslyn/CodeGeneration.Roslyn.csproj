@@ -9,6 +9,8 @@
 * CodeGeneration.Roslyn.RichGenerationResult
 * CodeGeneration.Roslyn.TransformationContext
     </Description>
+    <RepositoryUrl>https://github.com/cythral/codegeneration.roslyn</RepositoryUrl>
+    <PackageId>Cythral.CodeGeneration.Roslyn</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

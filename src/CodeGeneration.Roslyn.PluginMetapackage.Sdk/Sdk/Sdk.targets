@@ -11,7 +11,7 @@
     impact restore (or *shouldn't*).
   -->
   <ItemGroup Condition=" '$(AddImplicitCodeGenerationRoslynToolReference)' != 'false' ">
-    <PackageReference Include="CodeGeneration.Roslyn.Tool"
+    <PackageReference Include="Cythral.CodeGeneration.Roslyn.Tool"
                       Version="$(CodeGenerationRoslynPluginMetapackageSdkVersion)"
                       IsImplicitlyDefined="true"
                       PrivateAssets="none" />
