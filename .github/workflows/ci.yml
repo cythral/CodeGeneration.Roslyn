@@ -62,7 +62,7 @@ jobs:
     - name: Add GitHub Package Registry Source
       if: matrix.os == 'windows-latest'
       shell: bash
-      run: dotnet gpr setApiKey ${{ secrets.GITHUB_TOKEN }} > nuget.config
+      run: dotnet gpr setApiKey ${{ secrets.GITHUB_TOKEN }} > /dev/null
         
     - name: Github Package Registry
       if: matrix.os == 'windows-latest'
