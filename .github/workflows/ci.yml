@@ -23,6 +23,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Echo Ref
+      shell: bash
+      run: echo ${{ github.ref }}
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
 
