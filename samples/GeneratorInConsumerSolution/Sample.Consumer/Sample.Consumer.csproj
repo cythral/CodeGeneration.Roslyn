@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CodeGeneration.Roslyn.Tool" Version="$(LocalNuGetVersion)" PrivateAssets="all" />
+    <PackageReference Include="Cythral.CodeGeneration.Roslyn.Tool" Version="$(LocalNuGetVersion)" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
