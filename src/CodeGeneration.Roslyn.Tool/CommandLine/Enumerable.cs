@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace CodeGeneration.Roslyn.Tool.CommandLine
+namespace Cythral.CodeGeneration.Roslyn.Tool.CommandLine
 {
     // Low level replacement of System.Linq Enumerable class. In particular, this implementation
     // doesn't use generic virtual methods.

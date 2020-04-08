@@ -3,14 +3,14 @@
 
 using System.Threading;
 
-namespace CodeGeneration.Roslyn.Generate
+namespace Cythral.CodeGeneration.Roslyn.Generate
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
-    using CodeGeneration.Roslyn.Engine;
-    using CodeGeneration.Roslyn.Tool.CommandLine;
+    using Cythral.CodeGeneration.Roslyn.Engine;
+    using Cythral.CodeGeneration.Roslyn.Tool.CommandLine;
     using Microsoft.CodeAnalysis;
 
     internal static class Program

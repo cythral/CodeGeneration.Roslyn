@@ -3,7 +3,7 @@
 
 using System;
 using System.IO;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 using Xunit;
 
 [assembly: DirectoryPath]
@@ -32,13 +32,6 @@ public partial class CodeGenerationTests
     }
 
     [Fact]
-    public void NuGetRecordGeneratorWorks()
-    {
-        var record = new MyRecord(1, "id");
-        record.ToBuilder();
-    }
-
-    [Fact]
     public void AccessingBuildPropertiesWorks()
     {
         var objWithBuildProp = new ClassWithExampleBuildProperty();
@@ -57,14 +50,6 @@ public partial class CodeGenerationTests
         public void TestMethod()
         {
         }
-    }
-
-    [Record]
-    public partial class MyRecord
-    {
-        public int Id { get; }
-
-        public string Name { get; }
     }
 
     [DuplicateWithSuffixByName("A")]

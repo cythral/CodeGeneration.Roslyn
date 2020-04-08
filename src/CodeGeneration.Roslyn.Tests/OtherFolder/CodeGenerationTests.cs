@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 using Xunit;
 
 // NOTE THIS FILE INTENTIONALLY SHARES A FILENAME WITH ANOTHER FILE IN THIS PROJECT.

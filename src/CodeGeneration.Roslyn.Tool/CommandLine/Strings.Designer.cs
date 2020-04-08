@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CodeGeneration.Roslyn.Tool.CommandLine {
+namespace Cythral.CodeGeneration.Roslyn.Tool.CommandLine {
     using System;
     using System.Reflection;
     

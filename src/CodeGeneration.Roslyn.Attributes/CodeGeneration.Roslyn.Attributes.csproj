@@ -6,8 +6,9 @@
     <Description>A package that offers attributes to drive code generation. API:
 * CodeGeneration.Roslyn.CodeGenerationAttributeAttribute
     </Description>
-    
+
     <RepositoryUrl>https://github.com/cythral/codegeneration.roslyn</RepositoryUrl>
+    <AssemblyName>Cythral.CodeGeneration.Roslyn.Attributes</AssemblyName>
     <PackageId>Cythral.CodeGeneration.Roslyn.Attributes</PackageId>
   </PropertyGroup>
   

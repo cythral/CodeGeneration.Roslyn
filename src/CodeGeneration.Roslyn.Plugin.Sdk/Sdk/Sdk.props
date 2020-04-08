@@ -7,6 +7,6 @@
     <UsingCodeGenerationRoslynPluginSdkAsSdk>true</UsingCodeGenerationRoslynPluginSdkAsSdk>
   </PropertyGroup>
 
-  <Import Project="../build/CodeGeneration.Roslyn.Plugin.Sdk.props" />
+  <Import Project="../build/Cythral.CodeGeneration.Roslyn.Plugin.Sdk.props" />
 
 </Project>

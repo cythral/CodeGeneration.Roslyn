@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using CodeGeneration.Roslyn;
+using Cythral.CodeGeneration.Roslyn;
 
 namespace MetapackageSample
 {

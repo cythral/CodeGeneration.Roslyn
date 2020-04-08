@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace CodeGeneration.Roslyn.Tool.CommandLine
+namespace Cythral.CodeGeneration.Roslyn.Tool.CommandLine
 {
     public abstract class ArgumentCommand
     {

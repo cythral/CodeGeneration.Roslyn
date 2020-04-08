@@ -1,5 +1,5 @@
 ﻿using System;
-using CodeGeneration.Roslyn;
+using Cythral.CodeGeneration.Roslyn;
 
 namespace JsonConsumer
 {

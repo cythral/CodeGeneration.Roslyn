@@ -10,6 +10,7 @@
 * CodeGeneration.Roslyn.TransformationContext
     </Description>
     <RepositoryUrl>https://github.com/cythral/codegeneration.roslyn</RepositoryUrl>
+    <AssemblyName>Cythral.CodeGeneration.Roslyn</AssemblyName>
     <PackageId>Cythral.CodeGeneration.Roslyn</PackageId>
   </PropertyGroup>
 

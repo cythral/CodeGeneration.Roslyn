@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Andrew Arnott. All rights reserved.
 // Licensed under the MS-PL license. See LICENSE.txt file in the project root for full license information.
 
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 using Xunit;
 
 #pragma warning disable SA1402 // File may only contain a single class

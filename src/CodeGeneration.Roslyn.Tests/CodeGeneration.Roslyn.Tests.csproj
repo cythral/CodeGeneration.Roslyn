@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
-  <Import Project="..\CodeGeneration.Roslyn.Tool\build\CodeGeneration.Roslyn.Tool.props" />
+  <Import Project="..\CodeGeneration.Roslyn.Tool\build\Cythral.CodeGeneration.Roslyn.Tool.props" />
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
@@ -8,6 +8,7 @@
     <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);CGR1002</MSBuildWarningsAsMessages>
     <GenerateCodeFromAttributesDependsOn>OverrideCodeGenToolPath;$(GenerateCodeFromAttributesDependsOn)</GenerateCodeFromAttributesDependsOn>
     <ExampleBuildProperty>c7189d5e-495c-4cab-8e18-ab8d7ab71a2e</ExampleBuildProperty>
+    <AssemblyName>Cythral.CodeGeneration.Roslyn.Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -44,6 +45,6 @@
     </PropertyGroup>
   </Target>
 
-  <Import Project="..\CodeGeneration.Roslyn.Tool\build\CodeGeneration.Roslyn.Tool.targets" />
+  <Import Project="..\CodeGeneration.Roslyn.Tool\build\Cythral.CodeGeneration.Roslyn.Tool.targets" />
   
 </Project>

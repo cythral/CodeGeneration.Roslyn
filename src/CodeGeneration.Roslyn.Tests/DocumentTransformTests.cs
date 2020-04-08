@@ -24,7 +24,7 @@ public class DocumentTransformTests : CompilationTestsBase
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 [EmptyPartial]
 partial class Empty {}
@@ -47,7 +47,7 @@ namespace Testing.Middle
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 partial class Empty
 {
@@ -116,7 +116,7 @@ using System.Linq;";
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 #if SOMETHING_ACTIVE
 using System.Linq;
 #elif SOMETHING_INACTIVE
@@ -129,7 +129,7 @@ using System.Never;
 partial class Empty {}";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 using System.Linq;
 
 partial class Empty
@@ -143,7 +143,7 @@ partial class Empty
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 partial class Empty
 {
@@ -154,7 +154,7 @@ partial class Empty
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 partial class Empty
 {
@@ -167,7 +167,7 @@ partial class Empty
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 partial struct Empty
 {
@@ -178,7 +178,7 @@ partial struct Empty
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 partial struct Empty
 {
@@ -191,7 +191,7 @@ partial struct Empty
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -202,7 +202,7 @@ namespace Testing
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -218,7 +218,7 @@ namespace Testing
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -231,7 +231,7 @@ namespace Testing
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -247,7 +247,7 @@ namespace Testing
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -260,7 +260,7 @@ namespace Testing
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -276,7 +276,7 @@ namespace Testing
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -288,7 +288,7 @@ namespace Testing
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -304,7 +304,7 @@ namespace Testing
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -316,7 +316,7 @@ namespace Testing
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -332,7 +332,7 @@ namespace Testing
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -343,7 +343,7 @@ namespace Testing
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Other.Namespace
 {
@@ -359,7 +359,7 @@ namespace Other.Namespace
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -370,7 +370,7 @@ namespace Testing
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 using System.Collections.Generic;
 
 ";
@@ -382,7 +382,7 @@ using System.Collections.Generic;
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -395,7 +395,7 @@ namespace Testing
 extern alias MyExternAlias;
 
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 ";
         await AssertGeneratedAsExpected(source, generated);
@@ -406,7 +406,7 @@ using CodeGeneration.Roslyn.Tests.Generators;
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -417,7 +417,7 @@ namespace Testing
 }";
         const string generated = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 [GeneratedAttribute]
 ";
@@ -429,7 +429,7 @@ using CodeGeneration.Roslyn.Tests.Generators;
     {
         const string source = @"
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 
 namespace Testing
 {
@@ -450,7 +450,7 @@ extern alias MyExternAlias1;
 extern alias MyExternAlias2;
 
 using System;
-using CodeGeneration.Roslyn.Tests.Generators;
+using Cythral.CodeGeneration.Roslyn.Tests.Generators;
 using System.Collections;
 using System.Collections.Generic;
 

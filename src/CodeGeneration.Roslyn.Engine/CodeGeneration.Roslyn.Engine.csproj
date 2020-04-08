@@ -7,6 +7,7 @@
 * CodeGeneration.Roslyn.DocumentTransform
     </Description>
     <RepositoryUrl>https://github.com/cythral/codegeneration.roslyn</RepositoryUrl>
+    <AssemblyName>Cythral.CodeGeneration.Roslyn.Engine</AssemblyName>
     <PackageId>Cythral.CodeGeneration.Roslyn.Engine</PackageId>
   </PropertyGroup>
 

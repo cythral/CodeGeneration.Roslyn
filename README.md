@@ -9,7 +9,7 @@ This includes design-time support, such that code generation can respond to
 changes made in hand-authored code files by generating new code that shows
 up to Intellisense as soon as the file is saved to disk.
 
-See [who's generating code or consuming it using CodeGeneration.Roslyn](https://github.com/AArnott/CodeGeneration.Roslyn/wiki/Users).
+See [who's generating code or consuming it using Cythral.CodeGeneration.Roslyn](https://github.com/AArnott/CodeGeneration.Roslyn/wiki/Users).
 
 Instructions on development and using this project's source code are in [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -75,7 +75,7 @@ This SDK will implicitly add a PackageReference to the corresponding version of 
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CodeGeneration.Roslyn;
+using Cythral.CodeGeneration.Roslyn;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -148,7 +148,7 @@ Then, define your attribute class:
 // Reflector/Program.cs
 using System;
 using System.Diagnostics;
-using CodeGeneration.Roslyn;
+using Cythral.CodeGeneration.Roslyn;
 
 namespace Reflector
 {
@@ -194,7 +194,7 @@ or member supported by the attribute and generator you wrote. We'll test our Dup
 // Reflector/Program.cs
 using System;
 using System.Diagnostics;
-using CodeGeneration.Roslyn;
+using Cythral.CodeGeneration.Roslyn;
 
 namespace Reflector
 {

@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace CodeGeneration.Roslyn.Tool.CommandLine
+namespace Cythral.CodeGeneration.Roslyn.Tool.CommandLine
 {
     public sealed class ArgumentList<T> : Argument
     {

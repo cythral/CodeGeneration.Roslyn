@@ -180,7 +180,7 @@ before, as well as after the response file reference.
 
 ```C#
 using System;
-using CodeGeneration.Roslyn.Tool.CommandLine;
+using Cythral.CodeGeneration.Roslyn.Tool.CommandLine;
 
 static class Program
 {

@@ -1,4 +1,4 @@
-﻿using CodeGeneration.Roslyn;
+﻿using Cythral.CodeGeneration.Roslyn;
 using System;
 
 namespace Sample.Generator

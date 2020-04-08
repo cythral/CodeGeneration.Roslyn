@@ -3,7 +3,7 @@
 
 using System;
 
-namespace CodeGeneration.Roslyn.Tool.CommandLine
+namespace Cythral.CodeGeneration.Roslyn.Tool.CommandLine
 {
     public sealed class ArgumentSyntaxException : Exception
     {
