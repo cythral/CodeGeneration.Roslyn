@@ -66,13 +66,14 @@ jobs:
 
     - name: Add Deploy Location
       if: matrix.os == 'windows-latest'
+      shell: bash
       # if: (github.event_name == 'push' && github.ref == 'master') || (github.event_name == 'release')
-      run: nuget.exe sources add https://nuget.pkg.github.com/cythral/index.json -name github -username cythral -password "${{ secrets.GITHUB_TOKEN }}"
+      run: cd src && sed -i.bak "s/\$GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g" nuget.ci.config && mv nuget.ci.config nuget.config
         
     - name: Deploy
       if: matrix.os == 'windows-latest'
       shell: bash
-      run: nuget.exe push bin/Packages/${{ env.Configuration }}/* -source github -apikey cythral
+      run: dotnet nuget push bin/Packages/${{ env.Configuration }}/* -s github
     
     
 
