@@ -58,22 +58,24 @@ jobs:
     - name: Build samples
       shell: pwsh
       run: samples/build.ps1
-    
-    - name: Install Nuget.exe
-      if: matrix.os == 'windows-latest'
-      shell: pwsh
-      run: Invoke-WebRequest "https://dist.nuget.org/win-x86-commandline/v4.7.1/nuget.exe" -outfile nuget.exe
 
-    - name: Add Deploy Location
+    - name: Add GitHub Package Registry Source
       if: matrix.os == 'windows-latest'
       shell: bash
-      # if: (github.event_name == 'push' && github.ref == 'master') || (github.event_name == 'release')
       run: dotnet gpr setApiKey ${{ secrets.GITHUB_TOKEN }} > nuget.config
         
-    - name: Deploy
+    - name: Github Package Registry
       if: matrix.os == 'windows-latest'
       shell: bash
       run: for file in $(ls bin/Packages/${{ env.Configuration }}/*.nupkg); do dotnet gpr push $file --owner cythral; done
+
+    - name: Deploy to NuGet
+      if: matrix.os == 'windows-latest' && github.ref == 'master' && github.event == 'push'
+      shell: bash
+      run: dotnet nuget push bin/Packages/${{ env.Configuration }}/*.nupkg -k ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json
+
+
+  
     
     
 
