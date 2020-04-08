@@ -68,7 +68,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       shell: bash
       # if: (github.event_name == 'push' && github.ref == 'master') || (github.event_name == 'release')
-      run: cd src && sed -i.bak "s/\$GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g" nuget.ci.config && mv nuget.ci.config nuget.config
+      run: cd src && sed -i.bak "s/\$GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g" nuget.ci.config && mv nuget.ci.config ../nuget.config
         
     - name: Deploy
       if: matrix.os == 'windows-latest'
