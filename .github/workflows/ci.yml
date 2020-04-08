@@ -73,7 +73,7 @@ jobs:
     - name: Deploy
       if: matrix.os == 'windows-latest'
       shell: bash
-      run: for file in $(ls bin/Packages/${{ env.Configuration }}/*.nupkg) do dotnet gpr push $file --owner cythral; done
+      run: for file in $(ls bin/Packages/${{ env.Configuration }}/*.nupkg); do dotnet gpr push $file --owner cythral; done
     
     
 
