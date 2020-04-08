@@ -68,12 +68,12 @@ jobs:
       if: matrix.os == 'windows-latest'
       shell: bash
       # if: (github.event_name == 'push' && github.ref == 'master') || (github.event_name == 'release')
-      run: cd src && sed -i.bak "s/\$GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g" nuget.ci.config && mv nuget.ci.config ../nuget.config && cd ..
+      run: dotnet gpr setApiKey $GITHUB_TOKEN >/dev/null
         
     - name: Deploy
       if: matrix.os == 'windows-latest'
       shell: bash
-      run: dotnet nuget push bin/Packages/${{ env.Configuration }}/* -s github -k cythral
+      run: dotnet gpr push bin/Packages/${{ env.Configuration }}/*
     
     
 
