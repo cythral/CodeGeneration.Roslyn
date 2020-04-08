@@ -11,12 +11,12 @@
     impact restore (or *shouldn't*).
   -->
   <ItemGroup Condition=" '$(AddImplicitCodeGenerationRoslynReference)' != 'false' ">
-    <PackageReference Include="CodeGeneration.Roslyn"
+    <PackageReference Include="Cythral.CodeGeneration.Roslyn"
                       Version="$(CodeGenerationRoslynPluginSdkVersion)"
                       IsImplicitlyDefined="true"
                       ExcludeAssets="runtime" />
   </ItemGroup>
 
-  <Import Project="../build/CodeGeneration.Roslyn.Plugin.Sdk.targets" />
+  <Import Project="../build/Cythral.CodeGeneration.Roslyn.Plugin.Sdk.targets" />
 
 </Project>

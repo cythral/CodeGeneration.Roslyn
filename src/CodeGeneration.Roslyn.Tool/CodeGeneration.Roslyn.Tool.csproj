@@ -39,7 +39,6 @@
     <None Include="build/**">
       <Pack>true</Pack>
       <PackagePath>build/</PackagePath>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Compile Update="CommandLine\Strings.Designer.cs">
       <DesignTime>True</DesignTime>

@@ -17,6 +17,6 @@
                       PrivateAssets="none" />
   </ItemGroup>
 
-  <Import Project="../build/CodeGeneration.Roslyn.PluginMetapackage.Sdk.targets" />
+  <Import Project="../build/Cythral.CodeGeneration.Roslyn.PluginMetapackage.Sdk.targets" />
 
 </Project>
