@@ -547,16 +547,13 @@ ItemGroup, as shown in `PackagedGenerator` sample.
 ### Accesss MSBuild Properties
 
 You may access MSBuild property values of the project being generated for, by first adding the property
-name to the `PluginRequestedProperties` property.  For example, if you want to access the TargetFramework build
+name to the `PluginRequestedProperty` item list.  For example, if you want to access the TargetFramework build 
 property, you would do the following in your generator's .csproj file:
 
 ```xml
-<PropertyGroup>
-  <PluginRequestedProperties>
-    $(PluginRequestedProperties);
-    ExampleBuildProperty
-  </PluginRequestedProperties>
-</PropertyGroup>
+<ItemGroup>
+  <PluginRequestedProperty Include="ExampleBuildProperty" />
+</ItemGroup>
 ```
 
 Then, you can access its value like this:

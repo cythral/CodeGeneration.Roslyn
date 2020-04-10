@@ -64,13 +64,8 @@
 @(_PackageBuildFolderProjectImport_props->'  <Import Project="%(Identity)" />', '%0D%0A')
   <ItemGroup>
     <CodeGenerationRoslynPlugin Include="%24(MSBuildThisFileDirectory)../$(PluginPackagePath)/$(TargetFileName)" />
+@(PluginRequestedProperty->'    <CodeGenerationRoslynRequestedProperty Include="%(Identity)" />', '%0D%0A')
   </ItemGroup>
-  <PropertyGroup>
-    <CodeGenerationRoslynRequestedProperties>
-      %24(CodeGenerationRoslynRequestedProperties);
-      $(PluginRequestedProperties)
-    </CodeGenerationRoslynRequestedProperties>
-  </PropertyGroup>
 </Project>
 ]]>
       </PackagePropsContent>

@@ -5,11 +5,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PluginRequestedProperties>
-      $(PluginRequestedProperties);
-      TargetFramework
-    </PluginRequestedProperties>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PluginRequestedProperty Include="TargetFramework" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="build/**" Pack="true" PackagePath="build" KeepDuplicates="false" />
