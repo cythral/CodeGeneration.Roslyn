@@ -5,10 +5,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <CodeGenerationRoslynRequestedProperties>
-      $(CodeGenerationRoslynRequestedProperties);
+    <PackageRequestedProperties>
+      $(PackageRequestedProperties);
       TargetFramework
-    </CodeGenerationRoslynRequestedProperties>
+    </PackageRequestedProperties>
   </PropertyGroup>
 
   <ItemGroup>
