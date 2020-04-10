@@ -63,7 +63,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 @(_PackageBuildFolderProjectImport_props->'  <Import Project="%(Identity)" />', '%0D%0A')
   <ItemGroup>
-    <CodeGenerationRoslynPlugin Include="%24(MSBuildThisFileDirectory)../$(PluginPackagePath)/$(TargetFileName)" />  
+    <CodeGenerationRoslynPlugin Include="%24(MSBuildThisFileDirectory)../$(PluginPackagePath)/$(TargetFileName)" />
   </ItemGroup>
   <PropertyGroup>
     <CodeGenerationRoslynRequestedProperties>
