@@ -547,15 +547,15 @@ ItemGroup, as shown in `PackagedGenerator` sample.
 ### Accesss MSBuild Properties
 
 You may access MSBuild property values of the project being generated for, by first adding the property
-name to the `CodeGenerationRoslynRequestedProperties` property.  For example, if you want to access the TargetFramework build
+name to the `PluginRequestedProperties` property.  For example, if you want to access the TargetFramework build
 property, you would do the following in your generator's .csproj file:
 
 ```xml
 <PropertyGroup>
-  <CodeGenerationRoslynRequestedProperties>
-    $(CodeGenerationRoslynRequestedProperties);
+  <PluginRequestedProperties>
+    $(PluginRequestedProperties);
     ExampleBuildProperty
-  </CodeGenerationRoslynRequestedProperties>
+  </PluginRequestedProperties>
 </PropertyGroup>
 ```
 
