@@ -10,7 +10,12 @@
       TargetFramework
     </CodeGenerationRoslynRequestedProperties>
   </PropertyGroup>
-  
+
+  <ItemGroup>
+    <None Include="build/**" Pack="true" PackagePath="build" KeepDuplicates="false" />
+    <PackageBuildFolderProjectImport Include="@(None->'%(Filename)%(Extension)')"/>
+  </ItemGroup>
+
   <Import Project="$(CodeGenerationRoslynPluginSdkPath)Sdk.targets" />
 
 </Project>
