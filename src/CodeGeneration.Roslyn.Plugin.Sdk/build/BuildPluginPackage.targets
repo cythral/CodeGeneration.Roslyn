@@ -68,7 +68,7 @@
   <PropertyGroup>
     <CodeGenerationRoslynRequestedProperties>
       %24(CodeGenerationRoslynRequestedProperties);
-      $(PackageRequestedProperties)
+      $(PluginRequestedProperties)
     </CodeGenerationRoslynRequestedProperties>
   </PropertyGroup>
 </Project>

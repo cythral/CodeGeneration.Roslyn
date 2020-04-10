@@ -5,10 +5,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequestedProperties>
-      $(PackageRequestedProperties);
+    <PluginRequestedProperties>
+      $(PluginRequestedProperties);
       TargetFramework
-    </PackageRequestedProperties>
+    </PluginRequestedProperties>
   </PropertyGroup>
 
   <ItemGroup>

@@ -26,7 +26,7 @@
         Condition=" '%(Compile.Generator)' == 'MSBuild:GenerateCodeFromAttributes' " />
       <_CodeGenToolInputs_DefineConstants Include="$(DefineConstants)" />
       <_CodeGenerationRoslynRequestedProperty Include="$(CodeGenerationRoslynRequestedProperties)" />
-      <_CodeGenerationRoslynResolvedProperty Include="@(_CodeGenerationRoslynRequestedProperty->Distinct())">
+      <_CodeGenerationRoslynResolvedProperty Include="@(_CodeGenerationRoslynRequestedProperty->Distinct()->Trim())">
         <Key>%(Identity)</Key>
         <Value>$(%(Identity))</Value>
       </_CodeGenerationRoslynResolvedProperty>
