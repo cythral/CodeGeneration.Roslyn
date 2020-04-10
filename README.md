@@ -461,13 +461,16 @@ as it's dependant packages.
 ### Accesss MSBuild Properties
 
 You may access MSBuild property values of the project being generated for, by first adding the property
-name to the `GeneratorBuildPropertyNames` item group.  For example, if you want to access the TargetFramework build
+name to the `CodeGenerationRoslynRequestedProperties` property.  For example, if you want to access the TargetFramework build
 property, you would do the following in your generator's .csproj file:
 
 ```xml
-<ItemGroup>
-  <GeneratorBuildPropertyNames Include="TargetFramework">
-</ItemGroup>
+<PropertyGroup>
+  <CodeGenerationRoslynRequestedProperties>
+    $(CodeGenerationRoslynRequestedProperties);
+    ExampleBuildProperty
+  </CodeGenerationRoslynRequestedProperties>
+</PropertyGroup>
 ```
 
 Then, you can access its value like this:

@@ -8,11 +8,11 @@
     <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);CGR1002</MSBuildWarningsAsMessages>
     <GenerateCodeFromAttributesDependsOn>OverrideCodeGenToolPath;$(GenerateCodeFromAttributesDependsOn)</GenerateCodeFromAttributesDependsOn>
     <ExampleBuildProperty>c7189d5e-495c-4cab-8e18-ab8d7ab71a2e</ExampleBuildProperty>
+    <CodeGenerationRoslynRequestedProperties>
+      $(CodeGenerationRoslynRequestedProperties);
+      ExampleBuildProperty;
+    </CodeGenerationRoslynRequestedProperties>
   </PropertyGroup>
-
-  <ItemGroup>
-    <GeneratorBuildPropertyNames Include="ExampleBuildProperty" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Amadevus.RecordGenerator.Attributes" Version="0.4.1" PrivateAssets="all" />

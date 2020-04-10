@@ -5,11 +5,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <CodeGenerationRoslynRequestedProperties>
+      $(CodeGenerationRoslynRequestedProperties);
+      TargetFramework
+    </CodeGenerationRoslynRequestedProperties>
   </PropertyGroup>
-
-  <ItemGroup>
-    <GeneratorBuildPropertyNames Include="TargetFramework" />
-  </ItemGroup>
   
   <Import Project="$(CodeGenerationRoslynPluginSdkPath)Sdk.targets" />
 
