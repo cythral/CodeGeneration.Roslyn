@@ -566,6 +566,8 @@ public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(TransformationCon
 }
 ```
 
+> ℹ For a sample generator that accesses MSBuild properties, see [BuildPropsGenerator](samples/BuildPropsGenerator) and its consuming project, [BuildPropsConsumer](samples/BuildPropsConsumer)
+
 [NuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn
 [AttrNuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn.Attributes
 [ToolNuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn.Tool
