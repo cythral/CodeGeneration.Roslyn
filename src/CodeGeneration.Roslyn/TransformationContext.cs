@@ -59,7 +59,7 @@ namespace CodeGeneration.Roslyn
         /// <summary>Gets a collection of extern aliases already queued to be generated.</summary>
         public IEnumerable<ExternAliasDirectiveSyntax> CompilationUnitExterns { get; }
 
-        /// <summary>MSBuild properties requested by plugins using PluginRequestedProperty/CodeGenerationRoslynRequestedProperty items.</summary>
+        /// <summary>Gets a dictionary of MSBuild properties requested by plugins using PluginRequestedProperty/CodeGenerationRoslynRequestedProperty items.</summary>
         public IReadOnlyDictionary<string, string> BuildProperties { get; }
     }
 }
