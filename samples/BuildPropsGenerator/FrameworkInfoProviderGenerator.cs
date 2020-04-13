@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,11 +8,11 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Sample.Generator
+namespace BuildPropsGenerator
 {
-    public class AddTargetFrameworkPropertyGenerator : ICodeGenerator
+    public class FrameworkInfoProviderGenerator : ICodeGenerator
     {
-        public AddTargetFrameworkPropertyGenerator(AttributeData attributeData)
+        public FrameworkInfoProviderGenerator(AttributeData attributeData)
         {
         }
 
@@ -32,12 +33,21 @@ namespace Sample.Generator
                     yield break;
                 yield return newPartialType
                     ?.AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
-                    .AddMembers(CreateTargetFrameworkProperty());
+                    .AddMembers(CreateTargetFrameworkListProperty(), CreateCurrentTargetFrameworkProperty());
             }
-            MemberDeclarationSyntax CreateTargetFrameworkProperty()
+            MemberDeclarationSyntax CreateTargetFrameworkListProperty()
             {
-                var value = context.BuildProperties["TargetFramework"];
-                return SyntaxFactory.ParseMemberDeclaration($"public string TargetFramework {{ get; }} = \"{value}\";");
+                var collectionType = "System.Collections.Generic.List<string>";
+                var frameworks = context.BuildProperties["TargetFrameworks"];
+                var quotedFrameworks = frameworks.Split(";").Select(framework => $"\"{framework}\"");
+                var commaDelimitedFrameworks = string.Join(',', quotedFrameworks.ToArray());
+
+                return SyntaxFactory.ParseMemberDeclaration($"public {collectionType} TargetFrameworks {{ get; }} = new {collectionType} {{ {commaDelimitedFrameworks} }};");
+            }
+            MemberDeclarationSyntax CreateCurrentTargetFrameworkProperty()
+            {
+                var framework = context.BuildProperties["TargetFramework"];
+                return SyntaxFactory.ParseMemberDeclaration($"public string CurrentTargetFramework {{ get; }} = \"{framework}\";");
             }
         }
     }
