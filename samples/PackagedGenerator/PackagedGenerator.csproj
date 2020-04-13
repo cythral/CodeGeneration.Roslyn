@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PluginRequestedProperty Include="TargetFramework" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="build/**" Pack="true" PackagePath="build" KeepDuplicates="false" />
     <PackageBuildFolderProjectImport Include="@(None->'%(Filename)%(Extension)')"/>
   </ItemGroup>

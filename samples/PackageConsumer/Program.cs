@@ -6,8 +6,6 @@ namespace PackageConsumer
     [CodeGenerationAttribute("Sample.Generator.IdGenerator, PackagedGenerator")]
     class IdAttribute : Attribute { }
 
-    
-
     [Id]
     partial class Program
     {
