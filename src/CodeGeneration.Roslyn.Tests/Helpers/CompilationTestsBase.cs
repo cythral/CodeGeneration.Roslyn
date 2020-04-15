@@ -2,6 +2,7 @@
 // Licensed under the MS-PL license. See LICENSE.txt file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
@@ -11,9 +12,11 @@ using System.Threading.Tasks;
 using Cythral.CodeGeneration.Roslyn;
 using Cythral.CodeGeneration.Roslyn.Engine;
 using Cythral.CodeGeneration.Roslyn.Tests.Generators;
+using McMaster.NETCore.Plugins;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
+using NSubstitute;
 using Xunit;
 
 public abstract class CompilationTestsBase
@@ -79,7 +82,16 @@ public abstract class CompilationTestsBase
         var diagnostics = compilation.GetDiagnostics();
         Assert.Empty(diagnostics.Where(x => x.Severity >= DiagnosticSeverity.Warning));
         var progress = new Progress<Diagnostic>();
-        var result = await DocumentTransform.TransformAsync(compilation, tree, null, null, Assembly.Load, progress, CancellationToken.None);
+        var cachedPlugins = new Dictionary<string, (PluginLoader, Assembly)>();
+        var plugins = new string[] { "Cythral.CodeGeneration.Roslyn.Tests", "Cythral.CodeGeneration.Roslyn.Tests.Generators" };
+
+        foreach (var plugin in plugins)
+        {
+            var config = Substitute.For<PluginConfig>(typeof(object).Assembly.Location);
+            cachedPlugins.Add(plugin, (Substitute.For<PluginLoader>(new object[] { config }), Substitute.For<Assembly>()));
+        }
+
+        var result = await DocumentTransform.TransformAsync(compilation, tree, null, null, Assembly.Load, cachedPlugins, progress, CancellationToken.None);
         return result;
     }
 

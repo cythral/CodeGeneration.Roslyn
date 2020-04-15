@@ -20,6 +20,7 @@
     <PackageReference Include="Amadevus.RecordGenerator.Generators" Version="0.4.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="$(RoslynNugetVersion)" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="NSubstitute" Version="4.2.1" />
     <PackageReference Include="Xunit" Version="2.4.1" />
     <PackageReference Include="Xunit.runner.visualstudio" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>
@@ -30,13 +31,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CodeGeneration.Roslyn.Engine\CodeGeneration.Roslyn.Engine.csproj" />
-    <ProjectReference Include="..\CodeGeneration.Roslyn.Tests.Generators\CodeGeneration.Roslyn.Tests.Generators.csproj"
-                      OutputItemType="CodeGenerationRoslynPlugin" />
-    <ProjectReference Include="..\CodeGeneration.Roslyn.Tool\CodeGeneration.Roslyn.Tool.csproj"
-                      ReferenceOutputAssembly="false"
-                      OutputItemType="CodeGeneratorToolPathItem"
-                      SkipGetTargetFrameworkProperties="true"
-                      UndefineProperties="TargetFramework" />
+    <ProjectReference Include="..\CodeGeneration.Roslyn.Tests.Generators\CodeGeneration.Roslyn.Tests.Generators.csproj" OutputItemType="CodeGenerationRoslynPlugin" />
+    <ProjectReference Include="..\CodeGeneration.Roslyn.Tool\CodeGeneration.Roslyn.Tool.csproj" ReferenceOutputAssembly="false" OutputItemType="CodeGeneratorToolPathItem" SkipGetTargetFrameworkProperties="true" UndefineProperties="TargetFramework" />
   </ItemGroup>
   
   <Target Name="OverrideCodeGenToolPath">
