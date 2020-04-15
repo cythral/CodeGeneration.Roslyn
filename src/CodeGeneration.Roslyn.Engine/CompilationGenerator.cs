@@ -130,7 +130,6 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
                                     this.ProjectDirectory,
                                     this.BuildProperties,
                                     this.LoadPlugin,
-                                    this.cachedPlugins,
                                     progress,
                                     cancellationToken);
                                 var generatedSyntaxTree = result.SyntaxTree;

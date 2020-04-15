@@ -11,7 +11,6 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using McMaster.NETCore.Plugins;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -43,7 +42,6 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
         /// <param name="projectDirectory">The path of the <c>.csproj</c> project file.</param>
         /// <param name="buildProperties">MSBuild properties to expose to the generator.</param>
         /// <param name="assemblyLoader">A function that can load an assembly with the given name.</param>
-        /// <param name="cachedPlugins">A dictionary of cached plugin loaders and the assemblies they loaded.</param>
         /// <param name="progress">Reports warnings and errors in code generation.</param>
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A task whose result is the generated document.</returns>
@@ -53,7 +51,6 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
             string projectDirectory,
             IReadOnlyDictionary<string, string> buildProperties,
             Func<AssemblyName, Assembly> assemblyLoader,
-            IReadOnlyDictionary<string, (PluginLoader, Assembly)> cachedPlugins,
             IProgress<Diagnostic> progress,
             CancellationToken cancellationToken)
         {
@@ -92,9 +89,6 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
                 {
                     generatorTypesUsed.Add(generator.GetType());
                     cancellationToken.ThrowIfCancellationRequested();
-
-                    var assemblyName = generator.GetType().Assembly.GetName().Name;
-                    (var pluginLoader, var _) = cachedPlugins[assemblyName];
                     var context = new TransformationContext(
                         memberNode,
                         inputSemanticModel,
@@ -106,15 +100,12 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
 
                     var richGenerator = generator as IRichCodeGenerator ?? new EnrichingCodeGeneratorProxy(generator);
 
-                    using (pluginLoader.EnterContextualReflection())
-                    {
-                        var emitted = await richGenerator.GenerateRichAsync(context, progress, cancellationToken);
+                    var emitted = await richGenerator.GenerateRichAsync(context, progress, cancellationToken);
 
-                        emittedExterns = emittedExterns.AddRange(emitted.Externs);
-                        emittedUsings = emittedUsings.AddRange(emitted.Usings);
-                        emittedAttributeLists = emittedAttributeLists.AddRange(emitted.AttributeLists);
-                        emittedMembers = emittedMembers.AddRange(emitted.Members);
-                    }
+                    emittedExterns = emittedExterns.AddRange(emitted.Externs);
+                    emittedUsings = emittedUsings.AddRange(emitted.Usings);
+                    emittedAttributeLists = emittedAttributeLists.AddRange(emitted.AttributeLists);
+                    emittedMembers = emittedMembers.AddRange(emitted.Members);
                 }
             }
 

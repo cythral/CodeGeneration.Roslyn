@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <Description>Source code generation tool that hosts custom generators (AKA Plugins). This package contains MSBuild targets that run the tool during a build, before compilation. See project site for details.</Description>
     <CodeAnalysisRuleSet>CodeGeneration.Roslyn.Tool.ruleset</CodeAnalysisRuleSet>
     <!-- Run on future runtimes - as a build tool, let's be user friendly. -->
