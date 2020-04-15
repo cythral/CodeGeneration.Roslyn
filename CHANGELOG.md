@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-* Support for accessing arbitrary MSBuild properties, see [Readme section](#access-msbuild-properties) ([#210])
+* Support for accessing arbitrary MSBuild properties, see [Readme section](README.md#access-msbuild-properties) ([#210])
 
 
 ## [0.7.63] - 2020-04-08
