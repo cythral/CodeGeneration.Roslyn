@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+* Support for accessing arbitrary MSBuild properties, see [Readme section](README.md#access-msbuild-properties) ([#210])
+
 
 > ⚠ There are major changes, please look at [v0.7 migration guide].
 
@@ -36,6 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#156]: https://github.com/AArnott/CodeGeneration.Roslyn/pull/156
 [#178]: https://github.com/AArnott/CodeGeneration.Roslyn/pull/178
 [#198]: https://github.com/AArnott/CodeGeneration.Roslyn/pull/198
+[#205]: https://github.com/AArnott/CodeGeneration.Roslyn/pull/205
+[#210]: https://github.com/AArnott/CodeGeneration.Roslyn/pull/210
 [v0.7 migration guide]: https://github.com/AArnott/CodeGeneration.Roslyn/wiki/Migrations#v07
 
 

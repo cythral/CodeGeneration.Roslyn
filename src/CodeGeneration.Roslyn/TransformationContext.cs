@@ -22,7 +22,7 @@ namespace Cythral.CodeGeneration.Roslyn
         /// <param name="projectDirectory">The absolute path of the directory where the project file is located.</param>
         /// <param name="compilationUnitUsings">The using directives already queued to be generated.</param>
         /// <param name="compilationUnitExterns">The extern aliases already queued to be generated.</param>
-        /// <param name="buildProperties">MSBuild properties that were present on the project being generated for.</param>
+        /// <param name="buildProperties">MSBuild properties requested by plugins using PluginRequestedProperty/CodeGenerationRoslynRequestedProperty items.</param>
         public TransformationContext(
             CSharpSyntaxNode processingNode,
             SemanticModel semanticModel,
@@ -59,7 +59,7 @@ namespace Cythral.CodeGeneration.Roslyn
         /// <summary>Gets a collection of extern aliases already queued to be generated.</summary>
         public IEnumerable<ExternAliasDirectiveSyntax> CompilationUnitExterns { get; }
 
-        /// <summary>Gets a dictionary of build properties on the project being generated for.</summary>
+        /// <summary>Gets a dictionary of MSBuild properties requested by plugins using PluginRequestedProperty/CodeGenerationRoslynRequestedProperty items.</summary>
         public IReadOnlyDictionary<string, string> BuildProperties { get; }
     }
 }

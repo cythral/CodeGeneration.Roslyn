@@ -466,15 +466,15 @@ to add custom MSBuild props/targets into NuGet package's `build` folder (and hav
 imported when package is referenced), you'll need to use `PackageBuildFolderProjectImport`
 ItemGroup, as shown in `PackagedGenerator` sample.
 
-#### Accesss MSBuild Properties
+### Accesss MSBuild Properties
 
 You may access MSBuild property values of the project being generated for, by first adding the property
-name to the `GeneratorBuildPropertyNames` item group.  For example, if you want to access the TargetFramework build
+name to the `PluginRequestedProperty` item list.  For example, if you want to access the TargetFramework build 
 property, you would do the following in your generator's .csproj file:
 
 ```xml
 <ItemGroup>
-  <GeneratorBuildPropertyNames Include="TargetFramework">
+  <PluginRequestedProperty Include="ExampleBuildProperty" />
 </ItemGroup>
 ```
 
@@ -488,7 +488,7 @@ public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(TransformationCon
 }
 ```
 
-
+> ℹ For a sample generator that accesses MSBuild properties, see [BuildPropsGenerator](samples/BuildPropsGenerator) and its consuming project, [BuildPropsConsumer](samples/BuildPropsConsumer)
 
 [NuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn
 [AttrNuPkg]: https://nuget.org/packages/CodeGeneration.Roslyn.Attributes

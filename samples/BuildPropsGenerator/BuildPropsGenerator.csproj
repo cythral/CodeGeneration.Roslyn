@@ -3,18 +3,15 @@
   <Import Project="$(CodeGenerationRoslynPluginSdkPath)Sdk.props" />
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="build/**" Pack="true" PackagePath="build" KeepDuplicates="false" />
-    <PackageBuildFolderProjectImport Include="@(None->'%(Filename)%(Extension)')"/>
-  </ItemGroup>
-
-  <ItemGroup>
+    <PluginRequestedProperty Include="TargetFrameworks" />
     <PluginRequestedProperty Include="TargetFramework" />
   </ItemGroup>
-  
+
   <Import Project="$(CodeGenerationRoslynPluginSdkPath)Sdk.targets" />
+
 </Project>

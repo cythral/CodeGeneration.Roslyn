@@ -8,11 +8,10 @@
     <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);CGR1002</MSBuildWarningsAsMessages>
     <GenerateCodeFromAttributesDependsOn>OverrideCodeGenToolPath;$(GenerateCodeFromAttributesDependsOn)</GenerateCodeFromAttributesDependsOn>
     <ExampleBuildProperty>c7189d5e-495c-4cab-8e18-ab8d7ab71a2e</ExampleBuildProperty>
-    <AssemblyName>Cythral.CodeGeneration.Roslyn.Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <GeneratorBuildPropertyNames Include="ExampleBuildProperty" />
+    <CodeGenerationRoslynRequestedProperty Include="ExampleBuildProperty" />
   </ItemGroup>
 
   <ItemGroup>
