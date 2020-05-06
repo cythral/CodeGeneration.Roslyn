@@ -16,6 +16,7 @@ namespace Cythral.CodeGeneration.Roslyn.Tests.Generators
     public class OnCompleteGenerator : ICodeGenerator
     {
         public string Test { get; set; }
+        
         public OnCompleteGenerator(AttributeData attributeData)
         {
         }
