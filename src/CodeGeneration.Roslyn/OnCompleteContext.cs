@@ -18,10 +18,12 @@ namespace Cythral.CodeGeneration.Roslyn
         /// </summary>
         /// <param name="intermediateOutputDirectory">The intermediate output directory of the project being generated for.</param>
         /// <param name="buildProperties">A read only dictionary of build properties that were present in the project being generated for.</param>
-        public OnCompleteContext(string intermediateOutputDirectory, IReadOnlyDictionary<string, string> buildProperties)
+        /// <param name="compilation">The resulting compilation.</param>
+        public OnCompleteContext(string intermediateOutputDirectory, IReadOnlyDictionary<string, string> buildProperties, CSharpCompilation compilation)
         {
             IntermediateOutputDirectory = intermediateOutputDirectory;
             BuildProperties = buildProperties;
+            Compilation = compilation;
         }
 
         /// <summary>Gets the intermediate output directory of the project being generated for.</summary>
@@ -29,5 +31,8 @@ namespace Cythral.CodeGeneration.Roslyn
 
         /// <summary>Gets a dictionary of build properties on the project being generated for.</summary>
         public IReadOnlyDictionary<string, string> BuildProperties { get; }
+
+        /// <summary>Gets the overall compilation being generated for.</summary>
+        public CSharpCompilation Compilation { get; }
     }
 }
