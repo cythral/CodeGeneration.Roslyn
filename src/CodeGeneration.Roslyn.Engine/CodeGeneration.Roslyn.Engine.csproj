@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Description>The engine of source code generation; used by CodeGeneration.Roslyn.Tool. Useful for testing custom source generators. API:
 * CodeGeneration.Roslyn.CompilationGenerator
 * CodeGeneration.Roslyn.DocumentTransform

@@ -22,5 +22,13 @@ namespace Cythral.CodeGeneration.Roslyn
         /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>The generated member syntax to be added to the project.</returns>
         Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(TransformationContext context, IProgress<Diagnostic> progress, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Invoked when code generation is completed.
+        /// </summary>
+        /// <param name="context">All the inputs necessary to perform post-processing.</param>
+        void OnComplete(OnCompleteContext context)
+        {
+        }
     }
 }
