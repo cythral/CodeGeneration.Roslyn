@@ -101,7 +101,7 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
             // For incremental build, we want to consider the input->output files as well as the assemblies involved in code generation.
             DateTime assembliesLastModified = GetLastModifiedAssemblyTime();
 
-            CSharpCompilation completedCompilation;
+            CSharpCompilation completedCompilation = null;
             var fileFailures = new List<Exception>();
             var generatorsUsed = new HashSet<ICodeGenerator>();
 
