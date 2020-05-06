@@ -102,7 +102,7 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
             DateTime assembliesLastModified = GetLastModifiedAssemblyTime();
 
             var fileFailures = new List<Exception>();
-            var generatorTypesUsed = new HashSet<Type>();
+            var generatorsUsed = new HashSet<ICodeGenerator>();
 
             using (var hasher = System.Security.Cryptography.SHA1.Create())
             {
@@ -135,7 +135,7 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
                                 var generatedSyntaxTree = result.SyntaxTree;
                                 var outputText = await generatedSyntaxTree.GetTextAsync(cancellationToken);
 
-                                generatorTypesUsed.UnionWith(result.GeneratorTypesUsed);
+                                generatorsUsed.UnionWith(result.GeneratorsUsed);
 
                                 using (var outputFileStream = File.OpenWrite(outputFilePath))
                                 using (var outputWriter = new StreamWriter(outputFileStream))
@@ -181,15 +181,9 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
 
             var onCompleteContext = new OnCompleteContext(IntermediateOutputDirectory, BuildProperties, compilation);
 
-            foreach (Type generatorType in generatorTypesUsed)
+            foreach (var generator in generatorsUsed)
             {
-                var method = generatorType.GetMethod("OnComplete");
-
-                if (method != null)
-                {
-                    var args = new object[] { onCompleteContext };
-                    method.Invoke(null, args);
-                }
+                generator.OnComplete(onCompleteContext);
             }
 
             if (fileFailures.Count > 0)

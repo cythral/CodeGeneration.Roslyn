@@ -19,6 +19,6 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
         public SyntaxTree SyntaxTree { get; set; }
 
         /// <summary>Gets or sets a set of generator types that were used to generate syntax trees.</summary>
-        public HashSet<Type> GeneratorTypesUsed { get; set; }
+        public HashSet<ICodeGenerator> GeneratorsUsed { get; set; }
     }
 }

@@ -79,15 +79,17 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
             var memberNodes = root
                 .DescendantNodesAndSelf(n => n is CompilationUnitSyntax || n is NamespaceDeclarationSyntax || n is TypeDeclarationSyntax)
                 .OfType<CSharpSyntaxNode>();
+            var generatorsUsed = new HashSet<ICodeGenerator>();
 
             foreach (var memberNode in memberNodes)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 var attributeData = GetAttributeData(compilation, inputSemanticModel, memberNode);
                 var generators = FindCodeGenerators(attributeData, assemblyLoader);
+                generatorsUsed.UnionWith(generators);
+
                 foreach (var generator in generators)
                 {
-                    generatorTypesUsed.Add(generator.GetType());
                     cancellationToken.ThrowIfCancellationRequested();
                     var context = new TransformationContext(
                         memberNode,
@@ -122,7 +124,7 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
             var result = new TransformResult
             {
                 SyntaxTree = compilationUnit.SyntaxTree,
-                GeneratorTypesUsed = generatorTypesUsed,
+                GeneratorsUsed = generatorsUsed,
             };
 
             return result;

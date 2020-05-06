@@ -27,7 +27,7 @@ namespace Cythral.CodeGeneration.Roslyn.Tests.Generators
             return Task.FromResult(results);
         }
 
-        public static void OnComplete(OnCompleteContext context)
+        public void OnComplete(OnCompleteContext context)
         {
             var fileName = Directory.GetFiles(context.IntermediateOutputDirectory, "CodeGenerationTests.*.cs")[0];
 
