@@ -15,8 +15,7 @@ namespace Cythral.CodeGeneration.Roslyn.Tests.Generators
 
     public class OnCompleteGenerator : ICodeGenerator
     {
-        public static bool OnCompleteCalled { get; private set; } = false;
-
+        public string Test { get; set; }
         public OnCompleteGenerator(AttributeData attributeData)
         {
         }
@@ -24,6 +23,7 @@ namespace Cythral.CodeGeneration.Roslyn.Tests.Generators
         public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(TransformationContext context, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
         {
             var results = SyntaxFactory.List<MemberDeclarationSyntax>();
+            Test = "test";
             return Task.FromResult(results);
         }
 
@@ -36,6 +36,7 @@ namespace Cythral.CodeGeneration.Roslyn.Tests.Generators
 public partial class OnComplete
 {
     public static readonly bool WasCalled = true;
+    public static string Test = """ + Test + @""";
 }
             ");
 #pragma warning restore SA1118

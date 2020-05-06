@@ -4,6 +4,7 @@
 namespace Cythral.CodeGeneration.Roslyn.Engine
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -103,7 +104,7 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
 
             CSharpCompilation completedCompilation = null;
             var fileFailures = new List<Exception>();
-            var generatorsUsed = new HashSet<ICodeGenerator>();
+            var generatorsUsed = new ConcurrentBag<ICodeGenerator>();
 
             using (var hasher = System.Security.Cryptography.SHA1.Create())
             {
@@ -136,7 +137,10 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
                                 var generatedSyntaxTree = result.SyntaxTree;
                                 var outputText = await generatedSyntaxTree.GetTextAsync(cancellationToken);
 
-                                generatorsUsed.UnionWith(result.GeneratorsUsed);
+                                foreach (var generator in result.GeneratorsUsed)
+                                {
+                                    generatorsUsed.Add(generator);
+                                }
 
                                 using (var outputFileStream = File.OpenWrite(outputFilePath))
                                 using (var outputWriter = new StreamWriter(outputFileStream))
