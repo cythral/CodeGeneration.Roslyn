@@ -5,6 +5,7 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
@@ -19,6 +20,6 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
         public SyntaxTree SyntaxTree { get; set; }
 
         /// <summary>Gets or sets a set of generator types that were used to generate syntax trees.</summary>
-        public HashSet<ICodeGenerator> GeneratorsUsed { get; set; }
+        public ConcurrentBag<ICodeGenerator> GeneratorsUsed { get; set; }
     }
 }

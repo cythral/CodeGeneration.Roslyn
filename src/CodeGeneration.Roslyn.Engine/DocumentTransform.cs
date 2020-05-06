@@ -4,6 +4,7 @@
 namespace Cythral.CodeGeneration.Roslyn.Engine
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
@@ -79,17 +80,17 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
             var memberNodes = root
                 .DescendantNodesAndSelf(n => n is CompilationUnitSyntax || n is NamespaceDeclarationSyntax || n is TypeDeclarationSyntax)
                 .OfType<CSharpSyntaxNode>();
-            var generatorsUsed = new HashSet<ICodeGenerator>();
+            var generatorsUsed = new ConcurrentBag<ICodeGenerator>();
 
             foreach (var memberNode in memberNodes)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 var attributeData = GetAttributeData(compilation, inputSemanticModel, memberNode);
                 var generators = FindCodeGenerators(attributeData, assemblyLoader);
-                generatorsUsed.UnionWith(generators);
 
                 foreach (var generator in generators)
                 {
+                    generatorsUsed.Add(generator);
                     cancellationToken.ThrowIfCancellationRequested();
                     var context = new TransformationContext(
                         memberNode,
