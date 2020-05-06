@@ -156,6 +156,8 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
                                         this.emptyGeneratedFiles.Add(outputFilePath);
                                     }
                                 }
+
+                                compilation = compilation.AddSyntaxTrees(generatedSyntaxTree);
                                 break;
                             }
                             catch (IOException ex) when (ex.HResult == ProcessCannotAccessFileHR && retriesLeft > 0)
@@ -177,7 +179,7 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
                 }
             }
 
-            var onCompleteContext = new OnCompleteContext(IntermediateOutputDirectory, BuildProperties);
+            var onCompleteContext = new OnCompleteContext(IntermediateOutputDirectory, BuildProperties, compilation);
 
             foreach (Type generatorType in generatorTypesUsed)
             {
