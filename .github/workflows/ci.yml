@@ -58,9 +58,9 @@ jobs:
         name: logs-${{ matrix.os }}
         path: obj/logs/
 
-    - name: Build samples
-      shell: pwsh
-      run: samples/build.ps1
+    # - name: Build samples
+    #   shell: pwsh
+    #   run: samples/build.ps1
 
     - name: Deploy to NuGet
       if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master' && github.event_name == 'push'
