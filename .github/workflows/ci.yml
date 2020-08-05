@@ -29,15 +29,18 @@ jobs:
     - run: dotnet --info
 
     - run: dotnet tool restore
-
+    
     - name: Run nbgv
-      run: dotnet nbgv get-version -p src
+      run: echo "::set-env name=VERSION::$(dotnet nbgv get-version -v NuGetPackageVersion -p src)"
+
+    - name: Display version
+      run: echo ${{ env.VERSION }}
 
     - name: Restore
       run: dotnet restore src -v normal
 
     - name: Build
-      run: dotnet build src -t:build,pack --no-restore -m  -bl:obj/logs/build-${{ matrix.os }}.binlog
+      run: dotnet build src -t:build,pack --no-restore -m  -bl:obj/logs/build-${{ matrix.os }}.binlog -p:PackageReleaseNotes="$(sed 's/,/%2c/g' .github/releases/v${{ env.VERSION }}.md)"
 
     - name: Test
       run: dotnet test src --no-build
@@ -59,22 +62,19 @@ jobs:
       shell: pwsh
       run: samples/build.ps1
 
-    - name: Add GitHub Package Registry Source
-      if: matrix.os == 'windows-latest'
-      shell: bash
-      run: dotnet gpr setApiKey ${{ secrets.GITHUB_TOKEN }} > /dev/null
-        
-    - name: Github Package Registry
-      if: matrix.os == 'windows-latest'
-      shell: bash
-      run: for file in $(ls bin/Packages/${{ env.Configuration }}/*.nupkg); do dotnet gpr push $file --owner cythral; done
-
     - name: Deploy to NuGet
       if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master' && github.event_name == 'push'
       shell: bash
       run: for file in $(ls bin/Packages/${{ env.Configuration }}/*.nupkg); do dotnet nuget push $file -k ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json; done
 
-
+    - uses: ncipollo/release-action@v1
+      if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master' && github.event_name == 'push'
+      with:
+        artifacts: "bin/Packages/${{ env.Configuration}}/*.nupkg,bin/Packages/${{ env.Configuration}}/*.snupkg"
+        bodyFile: ".github/releases/v${{ env.VERSION }}.md"
+        tag: v${{ env.VERSION }}
+        commit: ${{ env.GITHUB_SHA }}
+        token: ${{ secrets.GITHUB_TOKEN }}
   
     
     
