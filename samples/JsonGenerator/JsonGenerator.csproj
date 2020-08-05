@@ -3,7 +3,7 @@
   <Import Project="$(CodeGenerationRoslynPluginSdkPath)Sdk.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <PackAsCodeGenerationRoslynPlugin>$(TargetFramework.Equals('netcoreapp3.1'))</PackAsCodeGenerationRoslynPlugin>
   </PropertyGroup>
 
