@@ -184,7 +184,7 @@ namespace Cythral.CodeGeneration.Roslyn.Engine
                 }
             }
 
-            var onCompleteContext = new OnCompleteContext(IntermediateOutputDirectory, BuildProperties, completedCompilation);
+            var onCompleteContext = new OnCompleteContext(IntermediateOutputDirectory, BuildProperties, completedCompilation, generatedFiles);
 
             foreach (var generator in generatorsUsed)
             {
