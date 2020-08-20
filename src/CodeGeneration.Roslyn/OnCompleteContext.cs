@@ -37,7 +37,7 @@ namespace Cythral.CodeGeneration.Roslyn
         /// <summary>Gets the overall compilation being generated for.</summary>
         public CSharpCompilation Compilation { get; }
 
-        /// <summary>Gets a list of generated files</summary>
+        /// <summary>Gets a list of generated files.</summary>
         public List<string> GeneratedFiles { get; }
     }
 }
